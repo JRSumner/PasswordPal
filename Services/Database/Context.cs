@@ -9,9 +9,15 @@ public class Context : DbContext
     public DbSet<Password> Passwords { get; set; }
     public DbSet<PasswordCategory> PasswordCategories { get; set; }
 
+    private const string CONNECTION_STRING = "";
+
+    public Context(DbContextOptions<Context> options) : base(options) { }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Server=tcp:{localhost}.database.windows.net,1433;Initial Catalog={PasswordPalDB};Persist Security Info=False;User ID={your_username};Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
-        );
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseSqlServer(CONNECTION_STRING);
+        }
     }
 }
