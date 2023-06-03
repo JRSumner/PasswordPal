@@ -1,4 +1,4 @@
-namespace Core.Models
+namespace PasswordPal.Core.Models
 {
     public class PasswordCategory
     {

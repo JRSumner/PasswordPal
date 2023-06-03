@@ -1,9 +1,9 @@
-using Xunit;
 using Microsoft.EntityFrameworkCore;
-using Services.Database;  
-using Core.Models;
+using PasswordPal.Core.Models;
+using PasswordPal.Services.Database;
+using Xunit;
 
-namespace Tests.DatabaseAccess;
+namespace PasswordPal.Tests;
 
 public class DatabaseAccess
 {
