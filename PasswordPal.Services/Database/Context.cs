@@ -1,7 +1,7 @@
-using Core.Models;
+using PasswordPal.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Services.Database;
+namespace PasswordPal.Services.Database;
 
 public class Context : DbContext
 {
