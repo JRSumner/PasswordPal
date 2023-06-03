@@ -1,2 +1,55 @@
+# Ignore appsettings.json and obj directories
 **/appsettings.json
 **/obj/
+
+# Ignore .NET Core files
+*.swp
+*.*proj.user
+*.*proj.bak
+*.bak
+*.cache
+*.config
+*.dll
+*.exe
+*.log
+*.pdb
+*.suo
+*.user
+.DS_Store
+bin/
+obj/
+packages/
+
+# Ignore Visual Studio files
+.vs/
+*.sln.DotSettings.user
+*.sln.DotSettings
+*.userprefs
+
+# Ignore JetBrains Rider files
+.idea/
+
+# Ignore macOS files
+.DS_Store
+
+# Ignore Entity Framework Core files
+*.jfm
+*.edmx
+MigrationHistory/
+
+# Ignore NuGet files
+packages/
+*.nupkg
+*.symbols.nupkg
+
+# Ignore ASP.NET Scaffolding Files
+*.cshtml.cs
+
+# Ignore Test Results
+TestResults/
+
+# Ignore Azure Functions localsettings file
+local.settings.json
+
+# Ignore .NET Core publish folder
+publish/
