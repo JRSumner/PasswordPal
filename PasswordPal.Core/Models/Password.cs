@@ -1,3 +1,5 @@
+using System;
+
 namespace PasswordPal.Core.Models
 {
     public class Password

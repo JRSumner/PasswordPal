@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using PasswordPal.Core.Models;
 using PasswordPal.Services.Database;
