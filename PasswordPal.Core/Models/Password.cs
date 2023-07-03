@@ -1,5 +1,3 @@
-using System;
-
 namespace PasswordPal.Core.Models
 {
     public class Password
@@ -9,8 +7,8 @@ namespace PasswordPal.Core.Models
         public string Username { get; set; }
         public string EncryptedPassword { get; set; }
         public string Website { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public string CreatedAt { get; set; }
+        public string UpdatedAt { get; set; }
         public int UserId { get; set; }
     }
 }

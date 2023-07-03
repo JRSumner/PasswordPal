@@ -1,4 +1,3 @@
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using PasswordPal.Core.Models;
 using PasswordPal.Services.Database;
@@ -12,27 +11,36 @@ public class DatabaseAccess
     public void CanGetFirstUser()
     {
         var options = new DbContextOptionsBuilder<Context>()
-            .UseInMemoryDatabase(databaseName: "TestDatabase")
+            .UseInMemoryDatabase(databaseName: "PasswordPal_TestDatabase")
             .Options;
 
         using (var context = new Context(options))
         {
-            context.Users.Add(new User
+            context.User.Add(new User
             {
-                Username = "Test User",
-                Password = "pa$£word1",
-                Email = "TestUser890@mail.com"
+                Username = "testUser1",
+                Password = "testPassword1",
+                Email = "testUser1@email.com"
             });
-            
+
             context.SaveChanges();
         }
 
         User firstUser;
         using (var context = new Context(options))
         {
-            firstUser = context.Users.FirstOrDefault();
+            firstUser = context.User.FirstOrDefault();
         }
 
         Assert.NotNull(firstUser);
+    }
+
+    [Fact]
+    public void CanGetFirstPassword()
+    {
+        using var context = new Context();
+        var firstPassword = context.Password.ToList();
+        var users = context.User.ToList();
+        Assert.NotNull(firstPassword);
     }
 }
