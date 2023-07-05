@@ -1,9 +1,10 @@
-namespace PasswordPal.UI;
-
-public partial class Form1 : Form
+namespace PasswordPal.UI
 {
-    public Form1()
-    {
-        InitializeComponent();
-    }
+	public partial class Form1 : Form
+	{
+		public Form1()
+		{
+			InitializeComponent();
+		}
+	}
 }
