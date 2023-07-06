@@ -1,5 +1,10 @@
+using System.Configuration;
 using PasswordPal.Core.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
+using Microsoft.IdentityModel.Protocols;
+using ConfigurationManager = System.Configuration.ConfigurationManager;
 
 namespace PasswordPal.Services.Database;
 
@@ -10,7 +15,7 @@ public class Context : DbContext
     public DbSet<Password> Password { get; set; }
     public DbSet<PasswordCategory> PasswordCategory { get; set; }
 
-    private const string CONNECTION_STRING =  "Server=DESKTOP-RS3IDSB\\SQLEXPRESS;Database=PasswordPal;Trusted_Connection=True;Encrypt=False;";
+    //private const string CONNECTION_STRING =  "Server=DESKTOP-RS3IDSB\\SQLEXPRESS;Database=PasswordPal;Trusted_Connection=True;Encrypt=False;";
 
     public Context(DbContextOptions<Context> options) : base(options)
     {
@@ -24,9 +29,15 @@ public class Context : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if (!optionsBuilder.IsConfigured)
+	    var configuration = new ConfigurationBuilder()
+			.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "PasswordPal.Services"))
+			.AddJsonFile("appsettings.json", optional: true)
+			.Build();
+	    var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+	    if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlServer(CONNECTION_STRING);
+            optionsBuilder.UseSqlServer(connectionString);
         }
     }
 

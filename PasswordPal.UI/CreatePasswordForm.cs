@@ -14,7 +14,7 @@ namespace PasswordPal.UI
 		private void CreatePasswordBtn_Click(object sender, EventArgs e)
 		{
 			CheckFieldsArePopulated();
-
+			
 			var context = new Context();
 			var selectedCategory = context.PasswordCategory
 				.FirstOrDefault(c => c.Name == (string)CategoryComboBox.SelectedItem);
