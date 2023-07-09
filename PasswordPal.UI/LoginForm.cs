@@ -6,7 +6,7 @@
 		{
 			InitializeComponent();
 
-			passwordTextBox.PasswordChar = '*';
+			passwordTextBox.PasswordChar = Constants.PASSWORD_CHAR;
 		}
 	}
 }

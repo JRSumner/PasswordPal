@@ -13,7 +13,8 @@ namespace PasswordPal.UI
 			ApplicationConfiguration.Initialize();
 			//Application.Run(new CreatePasswordForm());
 			//Application.Run(new StoredPasswordsForm());
-			Application.Run(new LoginForm());
+			//Application.Run(new LoginForm());
+			Application.Run(new RegistrationForm());
 		}
 	}
 }
