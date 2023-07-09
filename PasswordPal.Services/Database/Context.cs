@@ -1,10 +1,6 @@
-using System.Configuration;
 using PasswordPal.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-
-using Microsoft.IdentityModel.Protocols;
-using ConfigurationManager = System.Configuration.ConfigurationManager;
 
 namespace PasswordPal.Services.Database;
 
@@ -14,8 +10,6 @@ public class Context : DbContext
 	public DbSet<User> User { get; set; }
     public DbSet<Password> Password { get; set; }
     public DbSet<PasswordCategory> PasswordCategory { get; set; }
-
-    //private const string CONNECTION_STRING =  "Server=DESKTOP-RS3IDSB\\SQLEXPRESS;Database=PasswordPal;Trusted_Connection=True;Encrypt=False;";
 
     public Context(DbContextOptions<Context> options) : base(options)
     {
