@@ -1,6 +1,8 @@
-﻿namespace PasswordPal.UI
+﻿using PasswordPal.UI.Utilities;
+
+namespace PasswordPal.UI
 {
-	public partial class LoginForm : Form
+    public partial class LoginForm : Form
 	{
 		public LoginForm()
 		{

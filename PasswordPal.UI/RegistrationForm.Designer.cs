@@ -36,6 +36,7 @@
 			emailLabel = new Label();
 			passwordLabel = new Label();
 			confirmPasswordLabel = new Label();
+			RegisterBtn = new Button();
 			SuspendLayout();
 			// 
 			// usernameTextBox
@@ -106,11 +107,22 @@
 			confirmPasswordLabel.TabIndex = 7;
 			confirmPasswordLabel.Text = "Confirm Password";
 			// 
+			// RegisterBtn
+			// 
+			RegisterBtn.Location = new Point(270, 308);
+			RegisterBtn.Name = "RegisterBtn";
+			RegisterBtn.Size = new Size(256, 43);
+			RegisterBtn.TabIndex = 8;
+			RegisterBtn.Text = "Register";
+			RegisterBtn.UseVisualStyleBackColor = true;
+			RegisterBtn.Click += RegisterBtn_Click;
+			// 
 			// RegistrationForm
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(800, 450);
+			Controls.Add(RegisterBtn);
 			Controls.Add(confirmPasswordLabel);
 			Controls.Add(passwordLabel);
 			Controls.Add(emailLabel);
@@ -135,5 +147,6 @@
 		private Label emailLabel;
 		private Label passwordLabel;
 		private Label confirmPasswordLabel;
+		private Button RegisterBtn;
 	}
 }

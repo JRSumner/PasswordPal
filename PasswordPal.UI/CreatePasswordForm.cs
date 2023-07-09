@@ -1,6 +1,7 @@
 using PasswordPal.Core.Models;
 using PasswordPal.Services.Database;
 using System.Globalization;
+using PasswordPal.UI.Utilities;
 
 namespace PasswordPal.UI
 {
@@ -13,7 +14,12 @@ namespace PasswordPal.UI
 
 		private void CreatePasswordBtn_Click(object sender, EventArgs e)
 		{
-			CheckFieldsArePopulated();
+			var textBoxes = new List<TextBox> { TitleTextBox, UsernameTextBox, PasswordTextBox, WebsiteTextBox };
+
+			if (!HelperMethods.AllFieldsArePopulated(textBoxes))
+			{
+				return;
+			}
 			
 			var context = new Context();
 			var selectedCategory = context.PasswordCategory
@@ -33,16 +39,6 @@ namespace PasswordPal.UI
 
 			context.Password.Add(password);
 			context.SaveChanges();
-		}
-
-		private void CheckFieldsArePopulated()
-		{
-			var textBoxes = new List<TextBox>() { TitleTextBox, UsernameTextBox, PasswordTextBox, WebsiteTextBox };
-
-			if (textBoxes.Any(tb => string.IsNullOrEmpty(tb.Text) || string.IsNullOrWhiteSpace(tb.Text)))
-			{
-				MessageBox.Show(@"Please populate all fields before pressing ""Save"".");
-			}
 		}
 	}
 }
