@@ -12,7 +12,8 @@ namespace PasswordPal.UI
 			// see https://aka.ms/applicationconfiguration.
 			ApplicationConfiguration.Initialize();
 			//Application.Run(new CreatePasswordForm());
-            Application.Run(new StoredPasswordsForm());
-        }
+			//Application.Run(new StoredPasswordsForm());
+			Application.Run(new LoginForm());
+		}
 	}
 }
