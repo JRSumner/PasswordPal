@@ -17,29 +17,36 @@ namespace PasswordPal.UI
 		private void RegisterBtn_Click(object sender, EventArgs e)
 		{
 			var textBoxes = new List<TextBox> { usernameTextBox, emailTextBox, passwordTextBox, confirmPasswordTextBox};
-
-			if (!HelperMethods.AllFieldsArePopulated(textBoxes))
-			{
-				return;
-			}
-			//TODO: Requires testing.
-			if (!HelperMethods.PasswordMatchesConfirmation(passwordTextBox.Text, confirmPasswordTextBox.Text))
-			{
-				return;
-			}
+			var password = passwordTextBox?.Text;
+			var confirmPassword = confirmPasswordTextBox?.Text;
 
 			using var context = new Context();
 
+			var user = new User
+			{
+				Username = usernameTextBox.Text,
+				Email = emailTextBox.Text,
+				Password = HelperMethods.CreateHashedPassword(passwordTextBox?.Text)
+			};
+
+			if (!HelperMethods.ValidUserRegistration(textBoxes, password, confirmPassword, user, context))
+			{
+				return;
+			}
+
 			try
 			{
-				context.Add(new User
-				{
-					//Id = 0,
-					Username = usernameTextBox.Text,
-					Email = emailTextBox.Text,
-					Password = HelperMethods.CreateHashedPassword(passwordTextBox.Text)
-				});
+				context.Add(user);
 				context.SaveChanges();
+				if (context.User.Any(u => u.Username == user.Username))
+				{
+					MessageBox.Show($@"User: {user.Username}, registered successfully.");
+				}
+
+				foreach (var textBox in textBoxes)
+				{
+					textBox.Clear();
+				}
 			}
 			catch (Exception exception)
 			{

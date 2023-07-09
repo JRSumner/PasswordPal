@@ -78,6 +78,7 @@
 			LoginBtn.TabIndex = 4;
 			LoginBtn.Text = "Login";
 			LoginBtn.UseVisualStyleBackColor = true;
+			LoginBtn.Click += LoginBtn_Click;
 			// 
 			// passwordPalLabel
 			// 
