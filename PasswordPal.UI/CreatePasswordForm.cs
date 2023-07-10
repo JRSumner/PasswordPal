@@ -14,7 +14,7 @@ namespace PasswordPal.UI
 
 		private void CreatePasswordBtn_Click(object sender, EventArgs e)
 		{
-			var textBoxes = new List<TextBox> { TitleTextBox, UsernameTextBox, PasswordTextBox, WebsiteTextBox };
+			var textBoxes = new List<string> { TitleTextBox.Text, UsernameTextBox.Text, PasswordTextBox.Text, WebsiteTextBox.Text };
 
 			if (!HelperMethods.AllFieldsArePopulated(textBoxes))
 			{

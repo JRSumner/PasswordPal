@@ -17,7 +17,7 @@ namespace PasswordPal.UI
 		private void RegisterBtn_Click(object sender, EventArgs e)
 		{
 			using var context = new Context();
-			var textBoxes = new List<TextBox> { usernameTextBox, emailTextBox, passwordTextBox, confirmPasswordTextBox };
+			var textBoxes = new List<string> { usernameTextBox.Text, emailTextBox.Text, passwordTextBox.Text, confirmPasswordTextBox.Text };
 			var password = passwordTextBox?.Text;
 			var confirmPassword = confirmPasswordTextBox?.Text;
 			var hashedPasswordWithSalt = HelperMethods.GenerateHashedPasswordAndSalt(password);
@@ -41,8 +41,8 @@ namespace PasswordPal.UI
 				{
 					MessageBox.Show($@"User: {user.Username}, registered successfully.");
 				}
-
-				foreach (var textBox in textBoxes) textBox.Clear();
+				//TODO: Resolve below logic
+				//foreach (var textBox in textBoxes) textBox.Clear();
 			}
 			catch (Exception exception)
 			{
