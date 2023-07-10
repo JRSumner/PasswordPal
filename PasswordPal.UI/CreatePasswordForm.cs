@@ -25,7 +25,7 @@ namespace PasswordPal.UI
 			var selectedCategory = context.PasswordCategory
 				.FirstOrDefault(c => c.Name == (string)CategoryComboBox.SelectedItem);
 
-			var password = new Password
+			var password = new StoredPassword
 			{
 				Title = TitleTextBox.Text,
 				Username = UsernameTextBox.Text,

@@ -1,6 +1,6 @@
 namespace PasswordPal.Core.Models
 {
-	public class Password
+	public class StoredPassword
 	{
 		public int Id { get; set; }
 		public string Title { get; set; }
@@ -12,5 +12,4 @@ namespace PasswordPal.Core.Models
 		public int UserId { get; set; }
 		public int CategoryId { get; set; }
 	}
-
 }

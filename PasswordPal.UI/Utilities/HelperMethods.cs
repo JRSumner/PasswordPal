@@ -1,6 +1,8 @@
 ﻿using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography;
+using Core.Models;
 using Microsoft.VisualBasic.ApplicationServices;
+using PasswordPal.Core.Models;
 using PasswordPal.Services.Database;
 using MessageBox = System.Windows.Forms.MessageBox;
 using User = PasswordPal.Core.Models.User;
@@ -50,7 +52,7 @@ namespace PasswordPal.UI.Utilities
 			{
 				return false;
 			}
-			//TODO: Requires testing.
+
 			if (!PasswordMatchesConfirmation(password, confirmedPassword))
 			{
 				return false;
@@ -64,12 +66,12 @@ namespace PasswordPal.UI.Utilities
 			return true;
 		}
 
-		public static string CreateHashedPassword(string? password)
+		public static HashedPasswordAndSalt GenerateHashedPasswordAndSalt(string? stringPassword)
 		{
 			byte[] salt;
 			new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
 
-			var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 100000);
+			var pbkdf2 = new Rfc2898DeriveBytes(stringPassword, salt, 100000);
 			var hash = pbkdf2.GetBytes(20);
 
 			var hashBytes = new byte[36];
@@ -77,7 +79,29 @@ namespace PasswordPal.UI.Utilities
 			Array.Copy(hash, 0, hashBytes, 16, 20);
 			var savedPasswordHash = Convert.ToBase64String(hashBytes);
 
-			return savedPasswordHash;
+			var password = new HashedPasswordAndSalt
+			{
+				Password = savedPasswordHash,
+				Salt = Convert.ToBase64String(salt)
+			};
+
+			return password;
 		}
+
+		public static bool VerifyPassword(string enteredPassword, string storedPassword, string storedSalt)
+		{
+			byte[] salt = Convert.FromBase64String(storedSalt);
+			var pbkdf2 = new Rfc2898DeriveBytes(enteredPassword, salt, 100000);
+			var hash = pbkdf2.GetBytes(20);
+
+			var hashBytes = new byte[36];
+			Array.Copy(salt, 0, hashBytes, 0, 16);
+			Array.Copy(hash, 0, hashBytes, 16, 20);
+
+			var enteredPasswordHash = Convert.ToBase64String(hashBytes);
+
+			return enteredPasswordHash == storedPassword;
+		}
+
 	}
 }

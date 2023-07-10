@@ -13,40 +13,46 @@ public class SeedDatabase
 				Id = 1,
 				Username = "testUser1",
 				Email = "testUser1@email.com",
-				Password = "testPassword1"
+				Password = "testPassword1",
+				Salt = "exampleSalt"
 			},
 			new User
 			{
 				Id = 2,
 				Username = "testUser2",
 				Email = "testUser2@email.com",
-				Password = "testPassword2"
+				Password = "testPassword2",
+				Salt = "exampleSalt"
 			},
 			new User
 			{
 				Id = 3,
 				Username = "testUser3",
 				Email = "testUser3@email.com",
-				Password = "testPassword3"
+				Password = "testPassword3",
+				Salt = "exampleSalt"
 			},
 			new User
 			{
 				Id = 4,
 				Username = "testUser4",
 				Email = "testUser4@email.com",
-				Password = "testPassword4"
+				Password = "testPassword4",
+				Salt = "exampleSalt"
 			},
 			new User
 			{
 				Id = 5,
 				Username = "testUser5",
 				Email = "testUser5@email.com",
-				Password = "testPassword5"
+				Password = "testPassword5",
+				Salt = "exampleSalt"
 			}
 		);
 
-		modelBuilder.Entity<Password>().HasData(
-			new Password
+
+		modelBuilder.Entity<StoredPassword>().HasData(
+			new StoredPassword
 			{
 				Id = 1,
 				Title = "Title1",
@@ -57,7 +63,7 @@ public class SeedDatabase
 				UpdatedAt = "2023-07-04 14:00:00",
 				UserId = 1
 			},
-			new Password
+			new StoredPassword
 			{
 				Id = 2,
 				Title = "Title2",
@@ -68,7 +74,7 @@ public class SeedDatabase
 				UpdatedAt = "2023-07-04 14:00:00",
 				UserId = 2
 			},
-			new Password
+			new StoredPassword
 			{
 				Id = 3,
 				Title = "Title3",
@@ -79,7 +85,7 @@ public class SeedDatabase
 				UpdatedAt = "2023-07-04 14:00:00",
 				UserId = 3
 			},
-			new Password
+			new StoredPassword
 			{
 				Id = 4,
 				Title = "Title4",
@@ -90,7 +96,7 @@ public class SeedDatabase
 				UpdatedAt = "2023-07-04 14:00:00",
 				UserId = 4
 			},
-			new Password
+			new StoredPassword
 			{
 				Id = 5,
 				Title = "Title5",
