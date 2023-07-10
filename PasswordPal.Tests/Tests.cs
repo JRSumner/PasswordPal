@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using PasswordPal.Core.Models;
 using PasswordPal.Services.Database;
 using PasswordPal.UI.Utilities;

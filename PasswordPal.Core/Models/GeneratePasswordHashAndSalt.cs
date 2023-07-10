@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace PasswordPal.Core.Models;
 
-namespace Core.Models
+public class HashedPasswordAndSalt
 {
-	public class HashedPasswordAndSalt
-	{
-		public string Password { get; set; }
-		public string Salt { get; set; }
-	}
+	public string Password { get; set; }
+	public string Salt { get; set; }
 }

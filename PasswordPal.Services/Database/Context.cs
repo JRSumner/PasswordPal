@@ -35,8 +35,6 @@ public class Context : DbContext
         }
     }
 
-
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 	    _seedDatabase.OnModelCreating(modelBuilder);

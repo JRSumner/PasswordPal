@@ -1,7 +1,6 @@
-﻿namespace PasswordPal.UI.Utilities
+﻿namespace PasswordPal.UI.Utilities;
+
+public class Constants
 {
-    public class Constants
-    {
-        public const char PASSWORD_CHAR = '*';
-    }
+	public const char PASSWORD_CHAR = '*';
 }

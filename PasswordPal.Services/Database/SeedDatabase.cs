@@ -50,7 +50,6 @@ public class SeedDatabase
 			}
 		);
 
-
 		modelBuilder.Entity<StoredPassword>().HasData(
 			new StoredPassword
 			{
