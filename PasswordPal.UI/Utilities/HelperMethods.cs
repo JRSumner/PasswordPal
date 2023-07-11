@@ -8,9 +8,9 @@ namespace PasswordPal.UI.Utilities;
 
 public class HelperMethods
 {
-	public static bool AllFieldsArePopulated(List<string> textBoxes)
+	public static bool AllFieldsArePopulated(List<string> textBoxString)
 	{
-		if (!textBoxes.Any(tb => string.IsNullOrEmpty(tb) || string.IsNullOrWhiteSpace(tb))) return true;
+		if (!textBoxString.Any(tb => string.IsNullOrEmpty(tb) || string.IsNullOrWhiteSpace(tb))) return true;
 
 		MessageBox.Show(@"Please populate all fields before continuing.");
 		return false;
@@ -41,22 +41,13 @@ public class HelperMethods
 		return true;
 	}
 
-	public static bool ValidUserRegistration(List<string> textBoxes, string? password, string? confirmedPassword, User user, Context context)
+	public static bool ValidUserRegistration(List<string> textBoxString, string? password, string? confirmedPassword, User user, Context context)
 	{
-		if (!AllFieldsArePopulated(textBoxes))
-		{
-			return false;
-		}
+		if (!AllFieldsArePopulated(textBoxString)) return false;
 
-		if (!PasswordMatchesConfirmation(password, confirmedPassword))
-		{
-			return false;
-		}
-
-		if (!UniqueUsernameAndEmail(user, context))
-		{
-			return false;
-		}
+		if (!PasswordMatchesConfirmation(password, confirmedPassword)) return false;
+		
+		if (!UniqueUsernameAndEmail(user, context)) return false;
 
 		return true;
 	}

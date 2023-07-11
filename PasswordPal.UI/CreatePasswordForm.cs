@@ -20,7 +20,7 @@ public partial class CreatePasswordForm : Form
 		{
 			return;
 		}
-			
+
 		var context = new Context();
 		var selectedCategory = context.PasswordCategory
 			.FirstOrDefault(c => c.Name == (string)CategoryComboBox.SelectedItem);
@@ -37,7 +37,11 @@ public partial class CreatePasswordForm : Form
 			CategoryId = selectedCategory.Id,
 		};
 
-		context.Password.Add(password);
+		context.StoredPassword.Add(password);
 		context.SaveChanges();
+
+		var storedPasswordForm = new StoredPasswordsForm();
+		storedPasswordForm.Show();
+		Close();
 	}
 }

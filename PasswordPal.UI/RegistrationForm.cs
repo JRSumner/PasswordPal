@@ -17,7 +17,8 @@ public partial class RegistrationForm : Form
 	private void RegisterBtn_Click(object sender, EventArgs e)
 	{
 		using var context = new Context();
-		var textBoxes = new List<string> { usernameTextBox.Text, emailTextBox.Text, passwordTextBox.Text, confirmPasswordTextBox.Text };
+		var textBoxes = new List<TextBox> { usernameTextBox, emailTextBox, passwordTextBox, confirmPasswordTextBox };
+		var textBoxString = new List<string> { usernameTextBox.Text, emailTextBox.Text, passwordTextBox.Text, confirmPasswordTextBox.Text };
 		var password = passwordTextBox?.Text;
 		var confirmPassword = confirmPasswordTextBox?.Text;
 		var hashedPasswordWithSalt = HelperMethods.GenerateHashedPasswordAndSalt(password);
@@ -30,7 +31,7 @@ public partial class RegistrationForm : Form
 			Salt = hashedPasswordWithSalt.Salt
 		};
 
-		if (!HelperMethods.ValidUserRegistration(textBoxes, password, confirmPassword, user, context)) return;
+		if (!HelperMethods.ValidUserRegistration(textBoxString, password, confirmPassword, user, context)) return;
 
 		try
 		{
@@ -39,10 +40,13 @@ public partial class RegistrationForm : Form
 
 			if (context.User.Any(u => u.Username == user.Username))
 			{
-				MessageBox.Show($@"User: {user.Username}, registered successfully.");
+				MessageBox.Show(@"Registration successful!");
+				var loginForm = new LoginForm();
+				loginForm.Show();
+				Hide();
 			}
-			//TODO: Resolve below logic
-			//foreach (var textBox in textBoxes) textBox.Clear();
+			
+			foreach (var textBox in textBoxes) textBox.Clear();
 		}
 		catch (Exception exception)
 		{

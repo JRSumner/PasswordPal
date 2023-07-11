@@ -118,7 +118,7 @@
 			PasswordLabel.Name = "PasswordLabel";
 			PasswordLabel.Size = new Size(91, 25);
 			PasswordLabel.TabIndex = 8;
-			PasswordLabel.Text = "StoredPassword";
+			PasswordLabel.Text = "Password";
 			// 
 			// WebsiteLabel
 			// 

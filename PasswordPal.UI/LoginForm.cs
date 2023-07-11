@@ -1,25 +1,40 @@
 ﻿using PasswordPal.Services.Database;
 using PasswordPal.UI.Utilities;
 
-namespace PasswordPal.UI
+namespace PasswordPal.UI;
+
+public partial class LoginForm : Form
 {
-	public partial class LoginForm : Form
+	public LoginForm()
 	{
-		public LoginForm()
-		{
-			InitializeComponent();
+		InitializeComponent();
 
-			passwordTextBox.PasswordChar = Constants.PASSWORD_CHAR;
+		passwordTextBox.PasswordChar = Constants.PASSWORD_CHAR;
+	}
+
+	private void LoginBtn_Click(object sender, EventArgs e)
+	{
+		using var context = new Context();
+
+		var enteredUsername = usernameTextBox.Text;
+		var enteredPassword = passwordTextBox.Text;
+		var user = context.User.FirstOrDefault(u => u.Username == enteredUsername);
+
+		if (HelperMethods.VerifyPassword(enteredPassword, user?.Password, user?.Salt))
+		{
+			var storedPasswordsForm = new StoredPasswordsForm();
+			storedPasswordsForm.Show();
+			Hide();
+			return;
 		}
 
-		private void LoginBtn_Click(object sender, EventArgs e)
-		{
-			using var context = new Context();
+		MessageBox.Show(@"Error logging in");
+	}
 
-			var enteredUsername = usernameTextBox.Text;
-			var enteredPassword = passwordTextBox.Text;
-
-
-		}
+	private void SignUpBtn_Click(object sender, EventArgs e)
+	{
+		var registrationForm = new RegistrationForm();
+		registrationForm.Show();
+		Hide();
 	}
 }

@@ -29,6 +29,7 @@
 		private void InitializeComponent()
 		{
 			dataGridView1 = new DataGridView();
+			AddBtn = new Button();
 			((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
 			SuspendLayout();
 			// 
@@ -40,11 +41,22 @@
 			dataGridView1.Size = new Size(518, 426);
 			dataGridView1.TabIndex = 0;
 			// 
+			// AddBtn
+			// 
+			AddBtn.Location = new Point(3, 390);
+			AddBtn.Name = "AddBtn";
+			AddBtn.Size = new Size(262, 49);
+			AddBtn.TabIndex = 1;
+			AddBtn.Text = "Add";
+			AddBtn.UseVisualStyleBackColor = true;
+			AddBtn.Click += AddBtn_Click;
+			// 
 			// StoredPasswordsForm
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(800, 450);
+			Controls.Add(AddBtn);
 			Controls.Add(dataGridView1);
 			Name = "StoredPasswordsForm";
 			Text = "StoredPasswordsForm";
@@ -55,5 +67,6 @@
 		#endregion
 
 		private DataGridView dataGridView1;
+		private Button AddBtn;
 	}
 }

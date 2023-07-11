@@ -34,6 +34,7 @@
 			passwordLabel = new Label();
 			LoginBtn = new Button();
 			passwordPalLabel = new Label();
+			SignUpBtn = new Button();
 			SuspendLayout();
 			// 
 			// usernameTextBox
@@ -54,7 +55,7 @@
 			// 
 			usernameLabel.AutoSize = true;
 			usernameLabel.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-			usernameLabel.Location = new Point(138, 167);
+			usernameLabel.Location = new Point(140, 167);
 			usernameLabel.Name = "usernameLabel";
 			usernameLabel.Size = new Size(98, 25);
 			usernameLabel.TabIndex = 2;
@@ -64,7 +65,7 @@
 			// 
 			passwordLabel.AutoSize = true;
 			passwordLabel.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-			passwordLabel.Location = new Point(138, 206);
+			passwordLabel.Location = new Point(140, 206);
 			passwordLabel.Name = "passwordLabel";
 			passwordLabel.Size = new Size(91, 25);
 			passwordLabel.TabIndex = 3;
@@ -72,9 +73,9 @@
 			// 
 			// LoginBtn
 			// 
-			LoginBtn.Location = new Point(303, 250);
+			LoginBtn.Location = new Point(257, 244);
 			LoginBtn.Name = "LoginBtn";
-			LoginBtn.Size = new Size(237, 46);
+			LoginBtn.Size = new Size(164, 46);
 			LoginBtn.TabIndex = 4;
 			LoginBtn.Text = "Login";
 			LoginBtn.UseVisualStyleBackColor = true;
@@ -90,11 +91,22 @@
 			passwordPalLabel.TabIndex = 5;
 			passwordPalLabel.Text = "PasswordPal";
 			// 
+			// SignUpBtn
+			// 
+			SignUpBtn.Location = new Point(427, 244);
+			SignUpBtn.Name = "SignUpBtn";
+			SignUpBtn.Size = new Size(157, 47);
+			SignUpBtn.TabIndex = 6;
+			SignUpBtn.Text = "Sign Up";
+			SignUpBtn.UseVisualStyleBackColor = true;
+			SignUpBtn.Click += SignUpBtn_Click;
+			// 
 			// LoginForm
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(800, 450);
+			Controls.Add(SignUpBtn);
 			Controls.Add(passwordPalLabel);
 			Controls.Add(LoginBtn);
 			Controls.Add(passwordLabel);
@@ -115,5 +127,6 @@
 		private Label passwordLabel;
 		private Button LoginBtn;
 		private Label passwordPalLabel;
+		private Button SignUpBtn;
 	}
 }

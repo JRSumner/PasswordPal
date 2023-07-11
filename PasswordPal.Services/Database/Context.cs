@@ -8,7 +8,7 @@ public class Context : DbContext
 {
 	private readonly SeedDatabase _seedDatabase;
 	public DbSet<User> User { get; set; }
-    public DbSet<StoredPassword> Password { get; set; }
+    public DbSet<StoredPassword> StoredPassword { get; set; }
     public DbSet<PasswordCategory> PasswordCategory { get; set; }
 
     public Context(DbContextOptions<Context> options) : base(options)
