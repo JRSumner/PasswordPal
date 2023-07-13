@@ -1,6 +1,7 @@
 ﻿using PasswordPal.Core.Models;
 using PasswordPal.Services.Database;
-using PasswordPal.UI.Utilities;
+using PasswordPal.Services.Utilities;
+using PasswordPal.UI.Common;
 
 namespace PasswordPal.UI;
 
@@ -31,7 +32,13 @@ public partial class RegistrationForm : Form
 			Salt = hashedPasswordWithSalt.Salt
 		};
 
-		if (!HelperMethods.ValidUserRegistration(textBoxString, password, confirmPassword, user, context)) return;
+		var validUserRegistrationResult = HelperMethods.ValidUserRegistration(textBoxString, password, confirmPassword, user, context);
+
+		if (!validUserRegistrationResult.IsValid)
+		{
+			MessageBox.Show(validUserRegistrationResult.Message);
+			return;
+		}
 
 		try
 		{

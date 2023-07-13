@@ -1,7 +1,7 @@
 using System.Globalization;
 using PasswordPal.Core.Models;
 using PasswordPal.Services.Database;
-using PasswordPal.UI.Utilities;
+using PasswordPal.Services.Utilities;
 
 namespace PasswordPal.UI;
 
@@ -14,10 +14,12 @@ public partial class CreatePasswordForm : Form
 
 	private void CreatePasswordBtn_Click(object sender, EventArgs e)
 	{
-		var textBoxes = new List<string> { TitleTextBox.Text, UsernameTextBox.Text, PasswordTextBox.Text, WebsiteTextBox.Text };
+		var textBoxString = new List<string> { TitleTextBox.Text, UsernameTextBox.Text, PasswordTextBox.Text, WebsiteTextBox.Text };
+		var allFieldsArePopulatedResult = HelperMethods.AllFieldsArePopulated(textBoxString);
 
-		if (!HelperMethods.AllFieldsArePopulated(textBoxes))
+		if (!allFieldsArePopulatedResult.IsValid)
 		{
+			MessageBox.Show(allFieldsArePopulatedResult.Message);
 			return;
 		}
 

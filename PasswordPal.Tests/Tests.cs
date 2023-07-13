@@ -1,6 +1,6 @@
 using PasswordPal.Core.Models;
 using PasswordPal.Services.Database;
-using PasswordPal.UI.Utilities;
+using PasswordPal.Services.Utilities;
 using Xunit;
 
 namespace PasswordPal.Tests;
@@ -49,7 +49,7 @@ public class Tests
 
 		var result = HelperMethods.AllFieldsArePopulated(fields);
 
-		Assert.True(result);
+		Assert.True(result.IsValid);
 	}
 
 	[Fact]
@@ -63,7 +63,7 @@ public class Tests
 
 		var result = HelperMethods.AllFieldsArePopulated(fields);
 
-		Assert.False(result);
+		Assert.False(result.IsValid);
 	}
 
 	[Fact]
@@ -73,7 +73,7 @@ public class Tests
 		const string confirmedPassword = "ExamplePassword123!";
 		var result = HelperMethods.PasswordMatchesConfirmation(password, confirmedPassword);
 
-		Assert.True(result);
+		Assert.True(result.IsValid);
 	}
 
 	[Fact]
@@ -83,7 +83,7 @@ public class Tests
 		const string confirmedPassword = "NoneMatchingPassword";
 		var result = HelperMethods.PasswordMatchesConfirmation(password, confirmedPassword);
 
-		Assert.False(result);
+		Assert.False(result.IsValid);
 	}
 
 	[Fact]
@@ -100,7 +100,7 @@ public class Tests
 		using var context = new Context();
 		var result = HelperMethods.UniqueUsernameAndEmail(user, context);
 
-		Assert.True(result);
+		Assert.True(result.IsValid);
 	}
 
 	[Fact]
@@ -129,7 +129,7 @@ public class Tests
 		context.SaveChanges();
 		var result = HelperMethods.UniqueUsernameAndEmail(duplicateUser, context);
 
-		Assert.False(result);
+		Assert.False(result.IsValid);
 	}
 
 	[Fact]
@@ -155,7 +155,7 @@ public class Tests
 		using var context = new Context();
 		var result = HelperMethods.ValidUserRegistration(fields, password, confirmedPassword, user, context);
 
-		Assert.True(result);
+		Assert.True(result.IsValid);
 	}
 
 	[Fact]

@@ -1,4 +1,4 @@
-﻿namespace PasswordPal.UI.Utilities;
+﻿namespace PasswordPal.UI.Common;
 
 public class Constants
 {
