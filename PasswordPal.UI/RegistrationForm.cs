@@ -42,10 +42,9 @@ public partial class RegistrationForm : Form
 
 		try
 		{
-			context.Add(user);
-			context.SaveChanges();
+			HelperMethods.AddUser(user);
 
-			if (context.User.Any(u => u.Username == user.Username))
+			if (HelperMethods.UserExists(user.Username))
 			{
 				MessageBox.Show(@"Registration successful!");
 				var loginForm = new LoginForm();

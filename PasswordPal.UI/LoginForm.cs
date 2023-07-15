@@ -19,7 +19,7 @@ public partial class LoginForm : Form
 		var textBoxString = new List<string> { usernameTextBox.Text, passwordTextBox.Text };
 		var enteredUsername = usernameTextBox.Text;
 		var enteredPassword = passwordTextBox.Text;
-		var user = context.User.FirstOrDefault(u => u.Username == enteredUsername);
+		var user = HelperMethods.GetUser(enteredUsername);
 
 		var allFieldsArePopulatedResult = HelperMethods.AllFieldsArePopulated(textBoxString);
 
@@ -29,7 +29,7 @@ public partial class LoginForm : Form
 			return;
 		}
 
-		if (HelperMethods.VerifyPassword(enteredPassword, user?.Password, user?.Salt))
+		if (HelperMethods.VerifyPassword(enteredPassword, user.Password, user.Salt))
 		{
 			var storedPasswordsForm = new StoredPasswordsForm();
 			storedPasswordsForm.Show();

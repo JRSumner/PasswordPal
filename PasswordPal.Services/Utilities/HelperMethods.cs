@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.Diagnostics;
+using System.Security.Cryptography;
 using Core.Models;
 using PasswordPal.Core.Models;
 using PasswordPal.Services.Database;
@@ -134,5 +135,51 @@ public class HelperMethods
 		var enteredPasswordHash = Convert.ToBase64String(hashBytes);
 
 		return enteredPasswordHash == storedPassword;
+	}
+
+	public static void AddUser(User user)
+	{
+		using var context = new Context();
+		context.Add(user);
+		context.SaveChanges();
+	}
+
+	public static User GetUser(string username)
+	{
+		using var context = new Context();
+
+		return context.User.FirstOrDefault(u => u.Username == username);
+	}
+
+	public static bool UserExists(string username)
+	{
+		using var context = new Context();
+
+		return context.User.Any(u => u.Username == username);
+	}
+
+	public static PasswordCategory GetCategory(string category)
+	{
+		using var context = new Context();
+
+		return context.PasswordCategory.FirstOrDefault(c => c.Name == category);
+	}
+
+	public static void AddStoredPassword(StoredPassword storedPassword)
+	{
+		if (storedPassword == null) throw new ArgumentNullException();
+
+		using var context = new Context();
+		context.StoredPassword.Add(storedPassword);
+		context.SaveChanges();
+	}
+
+	public static StoredPassword GetStoredPassword(StoredPassword storedPassword)
+	{
+		if (storedPassword == null) throw new ArgumentNullException();
+
+		using var context = new Context();
+
+		return context.StoredPassword.FirstOrDefault(p => p.Id == storedPassword.Id);
 	}
 }

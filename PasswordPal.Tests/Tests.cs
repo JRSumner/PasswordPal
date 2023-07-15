@@ -1,13 +1,13 @@
 using PasswordPal.Core.Models;
 using PasswordPal.Services.Database;
 using PasswordPal.Services.Utilities;
+using System.Globalization;
 using Xunit;
 
 namespace PasswordPal.Tests;
 
 public class Tests
 {
-	#region Database Tests
 	[Fact]
 	public void AddsUserToDatabase_ReturnsTrue_IfSuccessful()
 	{
@@ -35,9 +35,7 @@ public class Tests
 
 		Assert.Contains(context.User, u => u.Username == user.Username);
 	}
-	#endregion
 
-	#region UI HelperMethod Tests
 	[Fact]
 	public void AllFieldsArePopulated_ReturnsTrue_WhenAllFieldsArePopulated()
 	{
@@ -179,5 +177,153 @@ public class Tests
 		Assert.NotNull(result.Password);
 		Assert.NotNull(result.Salt);
 	}
-	#endregion
+
+	[Fact]
+	public void AddUser_ReturnsTrue_WhenUserIsAdded()
+	{
+		var user = new User
+		{
+			Username = "TestUser5",
+			Email = "TestUser5@mail.com",
+			Password = "AnExamplePassword",
+			Salt = "AnExampleSalt"
+		};
+
+		HelperMethods.AddUser(user);
+		var result = HelperMethods.GetUser(user.Username);
+
+		Assert.NotNull(result);
+		Assert.Equal(result.Username, user.Username);
+	}
+
+	[Fact]
+	public void AddUser_ReturnsFalse_WhenUserIsNotAdded()
+	{
+		var user = new User
+		{
+			Username = "TestUser6",
+			Email = "TestUser6@mail.com",
+			Password = "AnExamplePassword",
+			Salt = "AnExampleSalt"
+		};
+
+		var result = HelperMethods.GetUser(user.Username);
+
+		Assert.Null(result);
+	}
+
+	[Fact]
+	public void GetUser_ReturnsTrue_WhenUserIsReturned()
+	{
+		var user = new User
+		{
+			Username = "TestUser7",
+			Email = "TestUser7@mail.com",
+			Password = "AnExamplePassword",
+			Salt = "AnExampleSalt"
+		};
+
+		HelperMethods.AddUser(user);
+		var result = HelperMethods.GetUser(user.Username);
+
+		Assert.Equal(result.Username, user.Username);
+	}
+
+	[Fact]
+	public void GetUser_ReturnsFalse_WhenUserIsNotReturned()
+	{
+		var user = new User
+		{
+			Username = "TestUser8",
+			Email = "TestUser8@mail.com",
+			Password = "AnExamplePassword",
+			Salt = "AnExampleSalt"
+		};
+
+		var result = HelperMethods.GetUser(user.Username);
+
+		Assert.Null(result);
+	}
+
+	[Fact]
+	public void UserExists_ReturnsTrue_WhenUserExists()
+	{
+		var user = new User
+		{
+			Username = "TestUser9",
+			Email = "TestUser9@mail.com",
+			Password = "AnExamplePassword",
+			Salt = "AnExampleSalt"
+		};
+
+		HelperMethods.AddUser(user);
+		var result = HelperMethods.UserExists(user.Username);
+
+		Assert.True(result);
+	}
+
+	[Fact]
+	public void UserExists_ReturnsFalse_WhenUserDoesNotExist()
+	{
+		var user = new User
+		{
+			Username = "TestUser10",
+			Email = "TestUser10@mail.com",
+			Password = "AnExamplePassword",
+			Salt = "AnExampleSalt"
+		};
+
+		var result = HelperMethods.UserExists(user.Username);
+
+		Assert.False(result);
+	}
+
+	[Fact]
+	public void GetCategory_ReturnsCategory_WhenCategoryExists()
+	{
+		var category = new PasswordCategory { Name = "Work" };
+		var result = HelperMethods.GetCategory(category.Name);
+
+		Assert.Equal(result.Name, category.Name);
+	}
+
+	[Fact]
+	public void GetCategory_ReturnsNull_WhenCategoryDoesNotExist()
+	{
+		const string categoryName = "NonExistingCategory";
+		var result = HelperMethods.GetCategory(categoryName);
+
+		Assert.Null(result);
+	}
+
+	[Fact]
+	public void AddStoredPassword_AddsPassword_WhenValidPasswordIsProvided()
+	{
+		var storedPassword = new StoredPassword
+		{
+			Title = "AnExampleStoredPassword",
+			Username = "AnExampleUsername",
+			EncryptedPassword = "AnExamplePassword",
+			Website = "AnExampleWebsite",
+			CreatedAt = DateTime.Now.ToString(CultureInfo.InvariantCulture),
+			UpdatedAt = DateTime.Now.ToString(CultureInfo.InvariantCulture),
+			UserId = 1,
+			CategoryId = 1
+		};
+
+		HelperMethods.AddStoredPassword(storedPassword);
+
+		var result = HelperMethods.GetStoredPassword(storedPassword); // Assuming you have a method to retrieve a password by Id
+
+		Assert.Equal(result.Id, storedPassword.Id);
+	}
+
+	[Fact]
+	public void AddStoredPassword_DoesNotAddPassword_WhenNullIsProvided()
+	{
+		StoredPassword password = null;
+
+		Assert.Throws<ArgumentNullException>(() => HelperMethods.AddStoredPassword(password));
+	}
+
 }
