@@ -1,4 +1,5 @@
 ﻿using Core.Models;
+using Core.Models.Responses;
 using PasswordPal.Core.Models;
 using PasswordPal.Services.Database;
 
@@ -13,11 +14,24 @@ namespace PasswordPal.Services.Services
 			context.SaveChanges();
 		}
 
-		public static User GetUser(string username)
+		public static UserResponse GetUser(string username)
 		{
 			using var context = new Context();
+			var user = context.User.FirstOrDefault(u => u.Username == username);
+			var userResponse = new UserResponse();
 
-			return context.User.FirstOrDefault(u => u.Username == username);
+			if (user != null)
+			{
+				userResponse.User = user;
+				userResponse.Success = true;
+
+				return userResponse;
+			}
+
+			userResponse.Success = false;
+			userResponse.Response = $"Unable to find user with username :{username}";
+
+			return userResponse;
 		}
 
 		public static bool UserExists(string username)

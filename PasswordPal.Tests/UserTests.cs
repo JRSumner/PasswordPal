@@ -123,7 +123,7 @@ namespace PasswordPal.Tests
 			var result = UserService.GetUser(user.Username);
 
 			Assert.NotNull(result);
-			Assert.Equal(result.Username, user.Username);
+			Assert.Equal(result.User.Username, user.Username);
 		}
 
 		[Fact]
@@ -139,7 +139,7 @@ namespace PasswordPal.Tests
 
 			var result = UserService.GetUser(user.Username);
 
-			Assert.Null(result);
+			Assert.False(result.Success);
 		}
 
 		[Fact]
@@ -156,7 +156,7 @@ namespace PasswordPal.Tests
 			UserService.AddUser(user);
 			var result = UserService.GetUser(user.Username);
 
-			Assert.Equal(result.Username, user.Username);
+			Assert.Equal(result.User.Username, user.Username);
 		}
 
 		[Fact]
@@ -172,7 +172,7 @@ namespace PasswordPal.Tests
 
 			var result = UserService.GetUser(user.Username);
 
-			Assert.Null(result);
+			Assert.False(result.Success);
 		}
 
 		[Fact]

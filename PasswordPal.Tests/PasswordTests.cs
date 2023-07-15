@@ -60,13 +60,13 @@ namespace PasswordPal.Tests
 				Website = "AnExampleWebsite",
 				CreatedAt = DateTime.Now.ToString(CultureInfo.InvariantCulture),
 				UpdatedAt = DateTime.Now.ToString(CultureInfo.InvariantCulture),
-				UserId = 1,
-				CategoryId = 1
+				UserId = 160,
+				CategoryId = 7
 			};
 
 			PasswordService.AddStoredPassword(storedPassword);
 
-			var result = PasswordService.GetStoredPassword(storedPassword); // Assuming you have a method to retrieve a password by Id
+			var result = PasswordService.GetStoredPassword(storedPassword);
 
 			Assert.Equal(result.Id, storedPassword.Id);
 		}
