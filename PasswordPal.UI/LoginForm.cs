@@ -1,5 +1,5 @@
 ﻿using PasswordPal.Services.Database;
-using PasswordPal.Services.Utilities;
+using PasswordPal.Services.Services;
 using PasswordPal.UI.Common;
 
 namespace PasswordPal.UI;
@@ -19,9 +19,9 @@ public partial class LoginForm : Form
 		var textBoxString = new List<string> { usernameTextBox.Text, passwordTextBox.Text };
 		var enteredUsername = usernameTextBox.Text;
 		var enteredPassword = passwordTextBox.Text;
-		var user = HelperMethods.GetUser(enteredUsername);
+		var user = UserService.GetUser(enteredUsername);
 
-		var allFieldsArePopulatedResult = HelperMethods.AllFieldsArePopulated(textBoxString);
+		var allFieldsArePopulatedResult = UserInterfaceService.AllFieldsArePopulated(textBoxString);
 
 		if (!allFieldsArePopulatedResult.IsValid)
 		{
@@ -29,7 +29,7 @@ public partial class LoginForm : Form
 			return;
 		}
 
-		if (HelperMethods.VerifyPassword(enteredPassword, user.Password, user.Salt))
+		if (PasswordService.VerifyPassword(enteredPassword, user.Password, user.Salt))
 		{
 			var storedPasswordsForm = new StoredPasswordsForm();
 			storedPasswordsForm.Show();

@@ -1,6 +1,6 @@
 ﻿using PasswordPal.Core.Models;
 using PasswordPal.Services.Database;
-using PasswordPal.Services.Utilities;
+using PasswordPal.Services.Services;
 using PasswordPal.UI.Common;
 
 namespace PasswordPal.UI;
@@ -22,7 +22,7 @@ public partial class RegistrationForm : Form
 		var textBoxString = new List<string> { usernameTextBox.Text, emailTextBox.Text, passwordTextBox.Text, confirmPasswordTextBox.Text };
 		var password = passwordTextBox?.Text;
 		var confirmPassword = confirmPasswordTextBox?.Text;
-		var hashedPasswordWithSalt = HelperMethods.GenerateHashedPasswordAndSalt(password);
+		var hashedPasswordWithSalt = PasswordService.GenerateHashedPasswordAndSalt(password);
 
 		var user = new User
 		{
@@ -32,7 +32,7 @@ public partial class RegistrationForm : Form
 			Salt = hashedPasswordWithSalt.Salt
 		};
 
-		var validUserRegistrationResult = HelperMethods.ValidUserRegistration(textBoxString, password, confirmPassword, user, context);
+		var validUserRegistrationResult = UserService.ValidUserRegistration(textBoxString, password, confirmPassword, user, context);
 
 		if (!validUserRegistrationResult.IsValid)
 		{
@@ -42,9 +42,9 @@ public partial class RegistrationForm : Form
 
 		try
 		{
-			HelperMethods.AddUser(user);
+			UserService.AddUser(user);
 
-			if (HelperMethods.UserExists(user.Username))
+			if (UserService.UserExists(user.Username))
 			{
 				MessageBox.Show(@"Registration successful!");
 				var loginForm = new LoginForm();

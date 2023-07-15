@@ -1,7 +1,6 @@
 using System.Globalization;
 using PasswordPal.Core.Models;
-using PasswordPal.Services.Database;
-using PasswordPal.Services.Utilities;
+using PasswordPal.Services.Services;
 
 namespace PasswordPal.UI;
 
@@ -15,7 +14,7 @@ public partial class CreatePasswordForm : Form
 	private void CreatePasswordBtn_Click(object sender, EventArgs e)
 	{
 		var textBoxString = new List<string> { TitleTextBox.Text, UsernameTextBox.Text, PasswordTextBox.Text, WebsiteTextBox.Text };
-		var allFieldsArePopulatedResult = HelperMethods.AllFieldsArePopulated(textBoxString);
+		var allFieldsArePopulatedResult = UserInterfaceService.AllFieldsArePopulated(textBoxString);
 
 		if (!allFieldsArePopulatedResult.IsValid)
 		{
@@ -23,7 +22,7 @@ public partial class CreatePasswordForm : Form
 			return;
 		}
 
-		var selectedCategory = HelperMethods.GetCategory((string)CategoryComboBox.SelectedItem);
+		var selectedCategory = CategoryService.GetCategory((string)CategoryComboBox.SelectedItem);
 
 		var password = new StoredPassword
 		{
@@ -37,7 +36,7 @@ public partial class CreatePasswordForm : Form
 			CategoryId = selectedCategory.Id,
 		};
 
-		HelperMethods.AddStoredPassword(password);
+		PasswordService.AddStoredPassword(password);
 
 		var storedPasswordForm = new StoredPasswordsForm();
 		storedPasswordForm.Show();

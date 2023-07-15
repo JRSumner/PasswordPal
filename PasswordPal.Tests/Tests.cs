@@ -1,6 +1,6 @@
 using PasswordPal.Core.Models;
 using PasswordPal.Services.Database;
-using PasswordPal.Services.Utilities;
+using PasswordPal.Services.Services;
 using System.Globalization;
 using Xunit;
 
@@ -45,7 +45,7 @@ public class Tests
 			"Some other text"
 		};
 
-		var result = HelperMethods.AllFieldsArePopulated(fields);
+		var result = UserInterfaceService.AllFieldsArePopulated(fields);
 
 		Assert.True(result.IsValid);
 	}
@@ -59,7 +59,7 @@ public class Tests
 			string.Empty // empty field
 		};
 
-		var result = HelperMethods.AllFieldsArePopulated(fields);
+		var result = UserInterfaceService.AllFieldsArePopulated(fields);
 
 		Assert.False(result.IsValid);
 	}
@@ -69,7 +69,7 @@ public class Tests
 	{
 		const string password = "ExamplePassword123!";
 		const string confirmedPassword = "ExamplePassword123!";
-		var result = HelperMethods.PasswordMatchesConfirmation(password, confirmedPassword);
+		var result = PasswordService.PasswordMatchesConfirmation(password, confirmedPassword);
 
 		Assert.True(result.IsValid);
 	}
@@ -79,7 +79,7 @@ public class Tests
 	{
 		const string password = "ExamplePassword123!";
 		const string confirmedPassword = "NoneMatchingPassword";
-		var result = HelperMethods.PasswordMatchesConfirmation(password, confirmedPassword);
+		var result = PasswordService.PasswordMatchesConfirmation(password, confirmedPassword);
 
 		Assert.False(result.IsValid);
 	}
@@ -96,7 +96,7 @@ public class Tests
 		};
 
 		using var context = new Context();
-		var result = HelperMethods.UniqueUsernameAndEmail(user, context);
+		var result = UserService.UniqueUsernameAndEmail(user, context);
 
 		Assert.True(result.IsValid);
 	}
@@ -125,7 +125,7 @@ public class Tests
 		if(!context.User.Any(u => u.Username == uniqueUser.Username || u.Email == uniqueUser.Email)) context.User.Add(uniqueUser);
 
 		context.SaveChanges();
-		var result = HelperMethods.UniqueUsernameAndEmail(duplicateUser, context);
+		var result = UserService.UniqueUsernameAndEmail(duplicateUser, context);
 
 		Assert.False(result.IsValid);
 	}
@@ -151,7 +151,7 @@ public class Tests
 		};
 
 		using var context = new Context();
-		var result = HelperMethods.ValidUserRegistration(fields, password, confirmedPassword, user, context);
+		var result = UserService.ValidUserRegistration(fields, password, confirmedPassword, user, context);
 
 		Assert.True(result.IsValid);
 	}
@@ -160,8 +160,8 @@ public class Tests
 	public void GenerateHashedPasswordAndSalt_ReturnsDifferentResultsForSamePassword()
 	{
 		const string password = "testPassword";
-		var result1 = HelperMethods.GenerateHashedPasswordAndSalt(password);
-		var result2 = HelperMethods.GenerateHashedPasswordAndSalt(password);
+		var result1 = PasswordService.GenerateHashedPasswordAndSalt(password);
+		var result2 = PasswordService.GenerateHashedPasswordAndSalt(password);
 
 		Assert.NotEqual(result1.Password, result2.Password);
 		Assert.NotEqual(result1.Salt, result2.Salt);
@@ -171,7 +171,7 @@ public class Tests
 	public void GenerateHashedPasswordAndSalt_ReturnsNotNull()
 	{
 		const string password = "testPassword";
-		var result = HelperMethods.GenerateHashedPasswordAndSalt(password);
+		var result = PasswordService.GenerateHashedPasswordAndSalt(password);
 
 		Assert.NotNull(result);
 		Assert.NotNull(result.Password);
@@ -189,8 +189,8 @@ public class Tests
 			Salt = "AnExampleSalt"
 		};
 
-		HelperMethods.AddUser(user);
-		var result = HelperMethods.GetUser(user.Username);
+		UserService.AddUser(user);
+		var result = UserService.GetUser(user.Username);
 
 		Assert.NotNull(result);
 		Assert.Equal(result.Username, user.Username);
@@ -207,7 +207,7 @@ public class Tests
 			Salt = "AnExampleSalt"
 		};
 
-		var result = HelperMethods.GetUser(user.Username);
+		var result = UserService.GetUser(user.Username);
 
 		Assert.Null(result);
 	}
@@ -223,8 +223,8 @@ public class Tests
 			Salt = "AnExampleSalt"
 		};
 
-		HelperMethods.AddUser(user);
-		var result = HelperMethods.GetUser(user.Username);
+		UserService.AddUser(user);
+		var result = UserService.GetUser(user.Username);
 
 		Assert.Equal(result.Username, user.Username);
 	}
@@ -240,7 +240,7 @@ public class Tests
 			Salt = "AnExampleSalt"
 		};
 
-		var result = HelperMethods.GetUser(user.Username);
+		var result = UserService.GetUser(user.Username);
 
 		Assert.Null(result);
 	}
@@ -256,8 +256,8 @@ public class Tests
 			Salt = "AnExampleSalt"
 		};
 
-		HelperMethods.AddUser(user);
-		var result = HelperMethods.UserExists(user.Username);
+		UserService.AddUser(user);
+		var result = UserService.UserExists(user.Username);
 
 		Assert.True(result);
 	}
@@ -273,7 +273,7 @@ public class Tests
 			Salt = "AnExampleSalt"
 		};
 
-		var result = HelperMethods.UserExists(user.Username);
+		var result = UserService.UserExists(user.Username);
 
 		Assert.False(result);
 	}
@@ -282,7 +282,7 @@ public class Tests
 	public void GetCategory_ReturnsCategory_WhenCategoryExists()
 	{
 		var category = new PasswordCategory { Name = "Work" };
-		var result = HelperMethods.GetCategory(category.Name);
+		var result = CategoryService.GetCategory(category.Name);
 
 		Assert.Equal(result.Name, category.Name);
 	}
@@ -291,7 +291,7 @@ public class Tests
 	public void GetCategory_ReturnsNull_WhenCategoryDoesNotExist()
 	{
 		const string categoryName = "NonExistingCategory";
-		var result = HelperMethods.GetCategory(categoryName);
+		var result = CategoryService.GetCategory(categoryName);
 
 		Assert.Null(result);
 	}
@@ -311,9 +311,9 @@ public class Tests
 			CategoryId = 1
 		};
 
-		HelperMethods.AddStoredPassword(storedPassword);
+		PasswordService.AddStoredPassword(storedPassword);
 
-		var result = HelperMethods.GetStoredPassword(storedPassword); // Assuming you have a method to retrieve a password by Id
+		var result = PasswordService.GetStoredPassword(storedPassword); // Assuming you have a method to retrieve a password by Id
 
 		Assert.Equal(result.Id, storedPassword.Id);
 	}
@@ -323,7 +323,7 @@ public class Tests
 	{
 		StoredPassword password = null;
 
-		Assert.Throws<ArgumentNullException>(() => HelperMethods.AddStoredPassword(password));
+		Assert.Throws<ArgumentNullException>(() => PasswordService.AddStoredPassword(password));
 	}
 
 }
