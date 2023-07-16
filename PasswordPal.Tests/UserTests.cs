@@ -1,6 +1,7 @@
 ﻿using PasswordPal.Services.Database;
 using PasswordPal.Core.Models;
 using PasswordPal.Services.Services;
+using PasswordPal.Tests.Data;
 using Xunit;
 
 namespace PasswordPal.Tests
@@ -10,14 +11,12 @@ namespace PasswordPal.Tests
 		[Fact]
 		public void AddsUserToDatabase_ReturnsTrue_IfSuccessful()
 		{
-			var randomNumber = new Random(999999).Next();
-
 			var user = new User
 			{
-				Username = $"testUser{randomNumber}",
-				Email = $"testUser{randomNumber}@mail.com",
-				Password = "testUser1",
-				Salt = "testUser1"
+				Username = TestDataGenerator.GetUniqueUsername(),
+				Email = TestDataGenerator.GetUniqueEmail(),
+				Password = TestDataGenerator.GetUniquePassword(),
+				Salt = TestDataGenerator.GetSalt()
 			};
 
 			using var context = new Context();
@@ -41,16 +40,16 @@ namespace PasswordPal.Tests
 		{
 			var user = new User
 			{
-				Username = "TestUser1",
-				Email = "TestUser1@mail.com",
-				Password = "AnExamplePassword",
-				Salt = "AnExampleSalt"
+				Username = TestDataGenerator.GetUniqueUsername(),
+				Email = TestDataGenerator.GetUniqueEmail(),
+				Password = TestDataGenerator.GetUniquePassword(),
+				Salt = TestDataGenerator.GetSalt()
 			};
 
 			using var context = new Context();
-			var result = UserService.UniqueUsernameAndEmail(user, context);
+			var result = UserService.UniqueUsernameAndEmail(user, context).IsValid;
 
-			Assert.True(result.IsValid);
+			Assert.True(result);
 		}
 
 		[Fact]
@@ -58,18 +57,18 @@ namespace PasswordPal.Tests
 		{
 			var uniqueUser = new User
 			{
-				Username = "TestUser2",
-				Email = "TestUser2@mail.com",
-				Password = "uniqueUser",
-				Salt = "AnExampleSalt"
+				Username = TestDataGenerator.GetUniqueUsername(),
+				Email = TestDataGenerator.GetUniqueEmail(),
+				Password = TestDataGenerator.GetUniquePassword(),
+				Salt = TestDataGenerator.GetSalt()
 			};
 
 			var duplicateUser = new User
 			{
-				Username = "TestUser2",
-				Email = "TestUser2@mail.com",
-				Password = "AnExamplePassword",
-				Salt = "AnExampleSalt"
+				Username = uniqueUser.Username,
+				Email = uniqueUser.Email,
+				Password = uniqueUser.Password,
+				Salt = uniqueUser.Salt
 			};
 
 			using var context = new Context();
@@ -77,9 +76,9 @@ namespace PasswordPal.Tests
 			if (!context.User.Any(u => u.Username == uniqueUser.Username || u.Email == uniqueUser.Email)) context.User.Add(uniqueUser);
 
 			context.SaveChanges();
-			var result = UserService.UniqueUsernameAndEmail(duplicateUser, context);
+			var result = UserService.UniqueUsernameAndEmail(duplicateUser, context).IsValid;
 
-			Assert.False(result.IsValid);
+			Assert.False(result);
 		}
 
 		[Fact]
@@ -91,15 +90,15 @@ namespace PasswordPal.Tests
 				"Some other text"
 			};
 
-			const string password = "ExamplePassword123!";
-			const string confirmedPassword = "ExamplePassword123!";
+			var password = TestDataGenerator.GetUniquePassword();
+			var confirmedPassword = password;
 
 			var user = new User
 			{
-				Username = "TestUser4",
-				Email = "TestUser4@mail.com",
-				Password = "AnExamplePassword",
-				Salt = "AnExampleSalt"
+				Username = TestDataGenerator.GetUniqueUsername(),
+				Email = TestDataGenerator.GetUniqueEmail(),
+				Password = TestDataGenerator.GetUniquePassword(),
+				Salt = TestDataGenerator.GetSalt()
 			};
 
 			using var context = new Context();
@@ -113,10 +112,10 @@ namespace PasswordPal.Tests
 		{
 			var user = new User
 			{
-				Username = "TestUser5",
-				Email = "TestUser5@mail.com",
-				Password = "AnExamplePassword",
-				Salt = "AnExampleSalt"
+				Username = TestDataGenerator.GetUniqueUsername(),
+				Email = TestDataGenerator.GetUniqueEmail(),
+				Password = TestDataGenerator.GetUniquePassword(),
+				Salt = TestDataGenerator.GetSalt()
 			};
 
 			UserService.AddUser(user);
@@ -131,10 +130,10 @@ namespace PasswordPal.Tests
 		{
 			var user = new User
 			{
-				Username = "TestUser6",
-				Email = "TestUser6@mail.com",
-				Password = "AnExamplePassword",
-				Salt = "AnExampleSalt"
+				Username = TestDataGenerator.GetUniqueUsername(),
+				Email = TestDataGenerator.GetUniqueEmail(),
+				Password = TestDataGenerator.GetUniquePassword(),
+				Salt = TestDataGenerator.GetSalt()
 			};
 
 			var result = UserService.GetUser(user.Username);
@@ -147,10 +146,10 @@ namespace PasswordPal.Tests
 		{
 			var user = new User
 			{
-				Username = "TestUser7",
-				Email = "TestUser7@mail.com",
-				Password = "AnExamplePassword",
-				Salt = "AnExampleSalt"
+				Username = TestDataGenerator.GetUniqueUsername(),
+				Email = TestDataGenerator.GetUniqueEmail(),
+				Password = TestDataGenerator.GetUniquePassword(),
+				Salt = TestDataGenerator.GetSalt()
 			};
 
 			UserService.AddUser(user);
@@ -164,10 +163,10 @@ namespace PasswordPal.Tests
 		{
 			var user = new User
 			{
-				Username = "TestUser8",
-				Email = "TestUser8@mail.com",
-				Password = "AnExamplePassword",
-				Salt = "AnExampleSalt"
+				Username = TestDataGenerator.GetUniqueUsername(),
+				Email = TestDataGenerator.GetUniqueEmail(),
+				Password = TestDataGenerator.GetUniquePassword(),
+				Salt = TestDataGenerator.GetSalt()
 			};
 
 			var result = UserService.GetUser(user.Username);
@@ -180,10 +179,10 @@ namespace PasswordPal.Tests
 		{
 			var user = new User
 			{
-				Username = "TestUser9",
-				Email = "TestUser9@mail.com",
-				Password = "AnExamplePassword",
-				Salt = "AnExampleSalt"
+				Username = TestDataGenerator.GetUniqueUsername(),
+				Email = TestDataGenerator.GetUniqueEmail(),
+				Password = TestDataGenerator.GetUniquePassword(),
+				Salt = TestDataGenerator.GetSalt()
 			};
 
 			UserService.AddUser(user);
@@ -197,10 +196,10 @@ namespace PasswordPal.Tests
 		{
 			var user = new User
 			{
-				Username = "TestUser10",
-				Email = "TestUser10@mail.com",
-				Password = "AnExamplePassword",
-				Salt = "AnExampleSalt"
+				Username = TestDataGenerator.GetUniqueUsername(),
+				Email = TestDataGenerator.GetUniqueEmail(),
+				Password = TestDataGenerator.GetUniquePassword(),
+				Salt = TestDataGenerator.GetSalt()
 			};
 
 			var result = UserService.UserExists(user.Username);

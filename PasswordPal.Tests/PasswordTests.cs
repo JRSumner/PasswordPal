@@ -1,6 +1,7 @@
 ﻿using PasswordPal.Core.Models;
 using PasswordPal.Services.Services;
 using System.Globalization;
+using PasswordPal.Tests.Data;
 using Xunit;
 
 namespace PasswordPal.Tests
@@ -10,27 +11,27 @@ namespace PasswordPal.Tests
 		[Fact]
 		public void PasswordMatchesConfirmation_ReturnsTrue_WhenPasswordsMatch()
 		{
-			const string password = "ExamplePassword123!";
-			const string confirmedPassword = "ExamplePassword123!";
-			var result = PasswordService.PasswordMatchesConfirmation(password, confirmedPassword);
+			var password = TestDataGenerator.GetUniquePassword();
+			var confirmedPassword = password;
+			var result = PasswordService.PasswordMatchesConfirmation(password, confirmedPassword).IsValid;
 
-			Assert.True(result.IsValid);
+			Assert.True(result);
 		}
 
 		[Fact]
 		public void PasswordMatchesConfirmation_ReturnsFalse_WhenPasswordsDontMatch()
 		{
-			const string password = "ExamplePassword123!";
-			const string confirmedPassword = "NoneMatchingPassword";
-			var result = PasswordService.PasswordMatchesConfirmation(password, confirmedPassword);
+			var password = TestDataGenerator.GetUniquePassword();
+			var confirmedPassword = "NoneMatchingPassword";
+			var result = PasswordService.PasswordMatchesConfirmation(password, confirmedPassword).IsValid;
 
-			Assert.False(result.IsValid);
+			Assert.False(result);
 		}
 
 		[Fact]
 		public void GenerateHashedPasswordAndSalt_ReturnsDifferentResultsForSamePassword()
 		{
-			const string password = "testPassword";
+			var password = TestDataGenerator.GetUniquePassword();
 			var result1 = PasswordService.GenerateHashedPasswordAndSalt(password);
 			var result2 = PasswordService.GenerateHashedPasswordAndSalt(password);
 
@@ -41,7 +42,7 @@ namespace PasswordPal.Tests
 		[Fact]
 		public void GenerateHashedPasswordAndSalt_ReturnsNotNull()
 		{
-			const string password = "testPassword";
+			var password = TestDataGenerator.GetUniquePassword();
 			var result = PasswordService.GenerateHashedPasswordAndSalt(password);
 
 			Assert.NotNull(result);
@@ -54,10 +55,10 @@ namespace PasswordPal.Tests
 		{
 			var storedPassword = new StoredPassword
 			{
-				Title = "AnExampleStoredPassword",
-				Username = "AnExampleUsername",
-				EncryptedPassword = "AnExamplePassword",
-				Website = "AnExampleWebsite",
+				Title = TestDataGenerator.GetUniqueTitle(),
+				Username = TestDataGenerator.GetUniqueUsername(),
+				EncryptedPassword = TestDataGenerator.GetUniquePassword(),
+				Website = TestDataGenerator.GetUniqueWebsite(),
 				CreatedAt = DateTime.Now.ToString(CultureInfo.InvariantCulture),
 				UpdatedAt = DateTime.Now.ToString(CultureInfo.InvariantCulture),
 				UserId = 160,
