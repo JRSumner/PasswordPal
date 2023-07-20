@@ -30,15 +30,16 @@
 		{
 			dataGridView1 = new DataGridView();
 			AddBtn = new Button();
+			LogoutBtn = new Button();
 			((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
 			SuspendLayout();
 			// 
 			// dataGridView1
 			// 
 			dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridView1.Location = new Point(270, 12);
+			dataGridView1.Location = new Point(270, 37);
 			dataGridView1.Name = "dataGridView1";
-			dataGridView1.Size = new Size(518, 426);
+			dataGridView1.Size = new Size(518, 401);
 			dataGridView1.TabIndex = 0;
 			// 
 			// AddBtn
@@ -51,11 +52,22 @@
 			AddBtn.UseVisualStyleBackColor = true;
 			AddBtn.Click += AddBtn_Click;
 			// 
+			// LogoutBtn
+			// 
+			LogoutBtn.Location = new Point(713, 8);
+			LogoutBtn.Name = "LogoutBtn";
+			LogoutBtn.Size = new Size(75, 23);
+			LogoutBtn.TabIndex = 2;
+			LogoutBtn.Text = "Logout";
+			LogoutBtn.UseVisualStyleBackColor = true;
+			LogoutBtn.Click += LogoutBtn_Click;
+			// 
 			// StoredPasswordsForm
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(800, 450);
+			Controls.Add(LogoutBtn);
 			Controls.Add(AddBtn);
 			Controls.Add(dataGridView1);
 			Name = "StoredPasswordsForm";
@@ -68,5 +80,6 @@
 
 		private DataGridView dataGridView1;
 		private Button AddBtn;
+		private Button LogoutBtn;
 	}
 }

@@ -25,6 +25,19 @@ public partial class StoredPasswordsForm : Form
 	{
 		var createPasswordForm = new CreatePasswordForm();
 		createPasswordForm.Show();
+		createPasswordForm.Closed += CloseCreatePasswordForm;
 		Hide();
+	}
+
+	private void LogoutBtn_Click(object sender, EventArgs e)
+	{
+		var loginForm = new LoginForm();
+		loginForm.Show();
+		Close();
+	}
+
+	private void CloseCreatePasswordForm(object sender, EventArgs e)
+	{
+		Show();
 	}
 }

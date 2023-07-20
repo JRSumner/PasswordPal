@@ -1,4 +1,5 @@
-﻿using PasswordPal.Services.Database;
+﻿using System.Reflection.Metadata;
+using PasswordPal.Services.Database;
 using PasswordPal.Services.Services;
 using PasswordPal.UI.Common;
 
@@ -15,7 +16,6 @@ public partial class LoginForm : Form
 
 	private void LoginBtn_Click(object sender, EventArgs e)
 	{
-		using var context = new Context();
 		var textBoxString = new List<string> { usernameTextBox.Text, passwordTextBox.Text };
 		var enteredUsername = usernameTextBox.Text;
 		var enteredPassword = passwordTextBox.Text;
@@ -23,14 +23,15 @@ public partial class LoginForm : Form
 
 		if (!userResponse.Success)
 		{
-			MessageBox.Show(userResponse.Response);
+			MessageBox.Show(userResponse.Response, Constants.MESSAGE_BOX_ERROR_TITLE);
+			return;
 		}
 
 		var allFieldsArePopulatedResult = UserInterfaceService.AllFieldsArePopulated(textBoxString);
 
 		if (!allFieldsArePopulatedResult.IsValid)
 		{
-			MessageBox.Show(allFieldsArePopulatedResult.Message);
+			MessageBox.Show(allFieldsArePopulatedResult.Message, Constants.MESSAGE_BOX_ERROR_TITLE);
 			return;
 		}
 
