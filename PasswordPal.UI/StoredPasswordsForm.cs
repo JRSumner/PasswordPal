@@ -14,6 +14,11 @@ public partial class StoredPasswordsForm : Form
 	{
 		using var context = new Context();
 		dataGridView1.DataSource = context.StoredPassword.ToList();
+		dataGridView1.Columns["Id"].Visible = false;
+		dataGridView1.Columns["UserId"].Visible = false;
+		dataGridView1.Columns["CategoryId"].Visible = false;
+		dataGridView1.Columns["CreatedAt"].Visible = false;
+		dataGridView1.Columns["UpdatedAt"].Visible = false;
 	}
 
 	private void AddBtn_Click(object sender, EventArgs e)

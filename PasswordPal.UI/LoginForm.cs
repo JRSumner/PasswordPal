@@ -49,6 +49,12 @@ public partial class LoginForm : Form
 	{
 		var registrationForm = new RegistrationForm();
 		registrationForm.Show();
+		registrationForm.FormClosed += RegistrationFormClosed;
 		Hide();
+	}
+
+	private void RegistrationFormClosed(object sender, EventArgs e)
+	{
+		Show();
 	}
 }
