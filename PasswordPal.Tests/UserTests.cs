@@ -9,33 +9,6 @@ namespace PasswordPal.Tests
 	public class UserTests
 	{
 		[Fact]
-		public void AddsUserToDatabase_ReturnsTrue_IfSuccessful()
-		{
-			var user = new User
-			{
-				Username = TestDataGenerator.GetUniqueUsername(),
-				Email = TestDataGenerator.GetUniqueEmail(),
-				Password = TestDataGenerator.GetUniquePassword(),
-				Salt = TestDataGenerator.GetSalt()
-			};
-
-			using var context = new Context();
-
-			var existingUser = context.User.FirstOrDefault(u => u.Username == user.Username);
-
-			if (existingUser != null)
-			{
-				context.User.Remove(existingUser);
-				context.SaveChanges();
-			}
-
-			context.User.Add(user);
-			context.SaveChanges();
-
-			Assert.Contains(context.User, u => u.Username == user.Username);
-		}
-
-		[Fact]
 		public void UniqueUsernameAndEmail_ReturnsTrue_WhenUserProvidesUniqueEmailAndUsername()
 		{
 			var user = new User
@@ -118,11 +91,21 @@ namespace PasswordPal.Tests
 				Salt = TestDataGenerator.GetSalt()
 			};
 
+			using var context = new Context();
+
+			var existingUser = context.User.Any(u => u == user);
+
+			if (existingUser)
+			{
+				UserService.AddUser(user);
+			}
+
 			UserService.AddUser(user);
 			var result = UserService.GetUser(user.Username);
 
 			Assert.NotNull(result);
 			Assert.Equal(result.User.Username, user.Username);
+			Assert.Contains(context.User, u => u.Username == user.Username);
 		}
 
 		[Fact]
@@ -139,6 +122,27 @@ namespace PasswordPal.Tests
 			var result = UserService.GetUser(user.Username);
 
 			Assert.False(result.Success);
+		}
+
+		[Fact]
+		public void RemoveUser_ReturnsTrue_WhenUserIsRemoved()
+		{
+			var user = new User
+			{
+				Username = TestDataGenerator.GetUniqueUsername(),
+				Email = TestDataGenerator.GetUniqueEmail(),
+				Password = TestDataGenerator.GetUniquePassword(),
+				Salt = TestDataGenerator.GetSalt()
+			};
+
+			UserService.AddUser(user);
+			var userAdded = UserService.UserExists(user.Username);
+
+			UserService.RemoveUser(user);
+			var userRemoved = !UserService.UserExists(user.Username);
+
+			Assert.True(userAdded);
+			Assert.True(userRemoved);
 		}
 
 		[Fact]

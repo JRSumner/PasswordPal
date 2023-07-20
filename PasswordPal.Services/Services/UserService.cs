@@ -14,6 +14,13 @@ namespace PasswordPal.Services.Services
 			context.SaveChanges();
 		}
 
+		public static void RemoveUser(User user)
+		{
+			using var context = new Context();
+			context.Remove(user);
+			context.SaveChanges();
+		}
+
 		public static UserResponse GetUser(string username)
 		{
 			using var context = new Context();
