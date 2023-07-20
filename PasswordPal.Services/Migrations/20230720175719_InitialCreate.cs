@@ -7,7 +7,7 @@
 namespace PasswordPal.Services.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialSeed : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -95,7 +95,8 @@ namespace PasswordPal.Services.Migrations
                     { 2, "testUser2@email.com", "testPassword2", "exampleSalt", "testUser2" },
                     { 3, "testUser3@email.com", "testPassword3", "exampleSalt", "testUser3" },
                     { 4, "testUser4@email.com", "testPassword4", "exampleSalt", "testUser4" },
-                    { 5, "testUser5@email.com", "testPassword5", "exampleSalt", "testUser5" }
+                    { 5, "testUser5@email.com", "testPassword5", "exampleSalt", "testUser5" },
+                    { 6, "a@email.com", "a", "exampleSalt", "a" }
                 });
         }
 

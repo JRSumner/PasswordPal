@@ -11,8 +11,8 @@ using PasswordPal.Services.Database;
 namespace PasswordPal.Services.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230716105156_InitialSeed")]
-    partial class InitialSeed
+    [Migration("20230720175719_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -246,6 +246,14 @@ namespace PasswordPal.Services.Migrations
                             Password = "testPassword5",
                             Salt = "exampleSalt",
                             Username = "testUser5"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Email = "a@email.com",
+                            Password = "a",
+                            Salt = "exampleSalt",
+                            Username = "a"
                         });
                 });
 #pragma warning restore 612, 618

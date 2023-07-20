@@ -243,6 +243,14 @@ namespace PasswordPal.Services.Migrations
                             Password = "testPassword5",
                             Salt = "exampleSalt",
                             Username = "testUser5"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Email = "a@email.com",
+                            Password = "a",
+                            Salt = "exampleSalt",
+                            Username = "a"
                         });
                 });
 #pragma warning restore 612, 618

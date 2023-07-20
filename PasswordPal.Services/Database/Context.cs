@@ -71,6 +71,14 @@ public class Context : DbContext
 				Email = "testUser5@email.com",
 				Password = "testPassword5",
 				Salt = "exampleSalt"
+			},
+			new User
+			{
+				Id = 6,
+				Username = "a",
+				Email = "a@email.com",
+				Password = "2/h/7XJ7FGAg4w5ibq60QUBR6WkwFx0hIotx9mHzVPEc8Ta0",
+				Salt = "2/h/7XJ7FGAg4w5ibq60QQ=="
 			}
 		);
 
