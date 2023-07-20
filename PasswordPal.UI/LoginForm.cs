@@ -23,7 +23,7 @@ public partial class LoginForm : Form
 
 		if (!userResponse.Success)
 		{
-			MessageBox.Show(userResponse.Response, Constants.MESSAGE_BOX_ERROR_TITLE);
+			MessageBox.Show(userResponse.Response, Constants.MESSAGE_BOX_TITLE_ERROR);
 			return;
 		}
 
@@ -31,7 +31,7 @@ public partial class LoginForm : Form
 
 		if (!allFieldsArePopulatedResult.IsValid)
 		{
-			MessageBox.Show(allFieldsArePopulatedResult.Message, Constants.MESSAGE_BOX_ERROR_TITLE);
+			MessageBox.Show(allFieldsArePopulatedResult.Message, Constants.MESSAGE_BOX_TITLE_ERROR);
 			return;
 		}
 
@@ -43,7 +43,7 @@ public partial class LoginForm : Form
 			return;
 		}
 
-		MessageBox.Show(@"Error logging in");
+		MessageBox.Show(@"Error logging in", Constants.MESSAGE_BOX_TITLE_ERROR);
 	}
 
 	private void SignUpBtn_Click(object sender, EventArgs e)

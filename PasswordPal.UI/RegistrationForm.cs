@@ -36,7 +36,7 @@ public partial class RegistrationForm : Form
 
 		if (!validUserRegistrationResult.IsValid)
 		{
-			MessageBox.Show(validUserRegistrationResult.Message);
+			MessageBox.Show(validUserRegistrationResult.Message, Constants.MESSAGE_BOX_TITLE_ERROR);
 			return;
 		}
 
@@ -46,7 +46,7 @@ public partial class RegistrationForm : Form
 
 			if (UserService.UserExists(user.Username))
 			{
-				MessageBox.Show(@"Registration successful!");
+				MessageBox.Show(@"Registration successful!", Constants.MESSAGE_BOX_TITLE_SUCCESS);
 				var loginForm = new LoginForm();
 				loginForm.Show();
 				Hide();
@@ -56,7 +56,7 @@ public partial class RegistrationForm : Form
 		}
 		catch (Exception exception)
 		{
-			MessageBox.Show($@"The following error occurred:{exception}");
+			MessageBox.Show($@"The following error occurred:{exception}", Constants.MESSAGE_BOX_TITLE_ERROR);
 			throw;
 		}
 	}
