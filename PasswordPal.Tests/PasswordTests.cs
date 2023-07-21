@@ -79,5 +79,29 @@ namespace PasswordPal.Tests
 
 			Assert.Throws<ArgumentNullException>(() => PasswordService.AddStoredPassword(password));
 		}
+
+		[Fact]
+		public void GetStoredPasswords_ReturnsNonEmptyList()
+		{
+			var password = new StoredPassword
+			{
+				Title = TestDataGenerator.GetUniqueTitle(),
+				Username = TestDataGenerator.GetUniqueUsername(),
+				EncryptedPassword = TestDataGenerator.GetUniquePassword(),
+				Website = TestDataGenerator.GetUniqueWebsite(),
+				CreatedAt = DateTime.Now.ToString(CultureInfo.InvariantCulture),
+				UpdatedAt = DateTime.Now.ToString(CultureInfo.InvariantCulture),
+				UserId = 160,
+				CategoryId = 7,
+			};
+
+			PasswordService.AddStoredPassword(password);
+
+			var result = PasswordService.GetStoredPasswords();
+
+			Assert.NotNull(result); 
+			Assert.IsType<List<StoredPassword>>(result); 
+			Assert.True(result.Count > 0);
+		}
 	}
 }

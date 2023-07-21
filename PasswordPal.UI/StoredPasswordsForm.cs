@@ -1,4 +1,5 @@
 ﻿using PasswordPal.Services.Database;
+using PasswordPal.Services.Services;
 
 namespace PasswordPal.UI;
 
@@ -12,8 +13,7 @@ public partial class StoredPasswordsForm : Form
 
 	private void DisplayStoredPasswords()
 	{
-		using var context = new Context();
-		dataGridView1.DataSource = context.StoredPassword.ToList();
+		dataGridView1.DataSource = PasswordService.GetStoredPasswords();
 		dataGridView1.Columns["Id"].Visible = false;
 		dataGridView1.Columns["UserId"].Visible = false;
 		dataGridView1.Columns["CategoryId"].Visible = false;

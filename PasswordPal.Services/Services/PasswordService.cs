@@ -78,5 +78,19 @@ namespace PasswordPal.Services.Services
 
 			return result;
 		}
+
+		public static List<StoredPassword>? GetStoredPasswords()
+		{
+			using var context = new Context();
+			var storedPassword = new List<StoredPassword>();
+
+			if (context.StoredPassword.Any())
+			{
+				storedPassword = context.StoredPassword?.ToList();
+				return storedPassword;
+			}
+
+			return storedPassword;
+		}
 	}
 }
