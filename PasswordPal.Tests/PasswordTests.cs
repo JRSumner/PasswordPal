@@ -81,7 +81,7 @@ namespace PasswordPal.Tests
 		}
 
 		[Fact]
-		public void GetStoredPasswords_ReturnsNonEmptyList()
+		public void GetStoredPasswords_ReturnsListOfStoredPasswords()
 		{
 			var password = new StoredPassword
 			{
