@@ -17,7 +17,6 @@ public partial class RegistrationForm : Form
 
 	private void RegisterBtn_Click(object sender, EventArgs e)
 	{
-		using var context = new Context();
 		var textBoxes = new List<TextBox> { usernameTextBox, emailTextBox, passwordTextBox, confirmPasswordTextBox };
 		var textBoxString = new List<string> { usernameTextBox.Text, emailTextBox.Text, passwordTextBox.Text, confirmPasswordTextBox.Text };
 		var password = passwordTextBox?.Text;
@@ -32,7 +31,7 @@ public partial class RegistrationForm : Form
 			Salt = hashedPasswordWithSalt.Salt
 		};
 
-		var validUserRegistrationResult = UserService.ValidUserRegistration(textBoxString, password, confirmPassword, user, context);
+		var validUserRegistrationResult = UserService.ValidUserRegistration(textBoxString, password, confirmPassword, user);
 
 		if (!validUserRegistrationResult.IsValid)
 		{

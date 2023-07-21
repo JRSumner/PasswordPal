@@ -48,12 +48,14 @@ namespace PasswordPal.Services.Services
 			return context.User.Any(u => u.Username == username);
 		}
 
-		public static ValidationResult UniqueUsernameAndEmail(User user, Context context)
+		public static ValidationResult UniqueUsernameAndEmail(User user)
 		{
 			var result = new ValidationResult
 			{
 				IsValid = true
 			};
+
+			using var context = new Context();
 
 			if (context.User.Any(u => u.Username == user.Username))
 			{
@@ -72,7 +74,7 @@ namespace PasswordPal.Services.Services
 			return result;
 		}
 
-		public static ValidationResult ValidUserRegistration(List<string> textBoxString, string? password, string? confirmedPassword, User user, Context context)
+		public static ValidationResult ValidUserRegistration(List<string> textBoxString, string? password, string? confirmedPassword, User user)
 		{
 			var result = new ValidationResult
 			{
@@ -81,7 +83,7 @@ namespace PasswordPal.Services.Services
 
 			var allFieldsArePopulatedResult = UserInterfaceService.AllFieldsArePopulated(textBoxString);
 			var passwordMatchesConfirmationResult = PasswordService.PasswordMatchesConfirmation(password, confirmedPassword);
-			var uniqueUsernameAndEmailResult = UniqueUsernameAndEmail(user, context);
+			var uniqueUsernameAndEmailResult = UniqueUsernameAndEmail(user);
 
 			if (!allFieldsArePopulatedResult.IsValid)
 			{

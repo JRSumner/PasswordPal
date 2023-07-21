@@ -20,7 +20,7 @@ namespace PasswordPal.Tests
 			};
 
 			using var context = new Context();
-			var result = UserService.UniqueUsernameAndEmail(user, context).IsValid;
+			var result = UserService.UniqueUsernameAndEmail(user).IsValid;
 
 			Assert.True(result);
 		}
@@ -49,7 +49,7 @@ namespace PasswordPal.Tests
 			if (!context.User.Any(u => u.Username == uniqueUser.Username || u.Email == uniqueUser.Email)) context.User.Add(uniqueUser);
 
 			context.SaveChanges();
-			var result = UserService.UniqueUsernameAndEmail(duplicateUser, context).IsValid;
+			var result = UserService.UniqueUsernameAndEmail(duplicateUser).IsValid;
 
 			Assert.False(result);
 		}
@@ -75,7 +75,7 @@ namespace PasswordPal.Tests
 			};
 
 			using var context = new Context();
-			var result = UserService.ValidUserRegistration(fields, password, confirmedPassword, user, context);
+			var result = UserService.ValidUserRegistration(fields, password, confirmedPassword, user);
 
 			Assert.True(result.IsValid);
 		}
