@@ -14,7 +14,6 @@ public partial class CreatePasswordForm : Form
 		InitializeComponent();
 		Methods.InitializeIcons(HelpIcon, InfoIcon, GithubIcon, BackIcon);
 
-		Text = @"PasswordPal - Add Item";
 		_previousFormLocation = location;
 	}
 

@@ -1,4 +1,5 @@
 ﻿using PasswordPal.Services.Services;
+using PasswordPal.UI.Common;
 
 namespace PasswordPal.UI;
 
@@ -9,9 +10,9 @@ public partial class StoredPasswordsForm : Form
 	public StoredPasswordsForm(Point location)
 	{
 		InitializeComponent();
+		Methods.InitializeIcons(HelpIcon, InfoIcon, GithubIcon);
 		DisplayStoredPasswords();
 
-		Text = @"PasswordPal - Stored Items";
 		_previousFormLocation = location;
 	}
 
@@ -47,5 +48,20 @@ public partial class StoredPasswordsForm : Form
 
 	private void StoredPasswordsFormLoad(object sender, EventArgs e)
 	{
+	}
+
+	private async void HelpIconClick(object sender, EventArgs e)
+	{
+		await Methods.HelpClickCommon(HelpIcon);
+	}
+
+	private async void InfoIconClick(object sender, EventArgs e)
+	{
+		await Methods.InfoClickCommon(InfoIcon);
+	}
+
+	private async void GithubIconClick(object sender, EventArgs e)
+	{
+		await Methods.GithubClickCommon(GithubIcon);
 	}
 }

@@ -173,8 +173,9 @@
 			Controls.Add(usernameLabel);
 			Controls.Add(passwordTextBox);
 			Controls.Add(usernameTextBox);
+			Icon = (Icon)resources.GetObject("$this.Icon");
 			Name = "LoginForm";
-			Text = "LoginForm";
+			Text = "PasswordPal - Login";
 			((System.ComponentModel.ISupportInitialize)HelpIcon).EndInit();
 			((System.ComponentModel.ISupportInitialize)InfoIcon).EndInit();
 			((System.ComponentModel.ISupportInitialize)GithubIcon).EndInit();

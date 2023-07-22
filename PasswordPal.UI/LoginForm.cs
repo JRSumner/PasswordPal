@@ -12,7 +12,6 @@ public partial class LoginForm : Form
 		InitializeComponent();
 		Methods.InitializeIcons(HelpIcon, InfoIcon, GithubIcon);
 
-		Text = @"PasswordPal - Login";
 		passwordTextBox.PasswordChar = Constants.PASSWORD_CHAR;
 		_previousFormLocation = location;
 	}

@@ -219,8 +219,9 @@
 			Controls.Add(passwordTextBox);
 			Controls.Add(emailTextBox);
 			Controls.Add(usernameTextBox);
+			Icon = (Icon)resources.GetObject("$this.Icon");
 			Name = "RegistrationForm";
-			Text = "RegistrationForm";
+			Text = "PasswordPal - Register";
 			((System.ComponentModel.ISupportInitialize)LockIcon).EndInit();
 			((System.ComponentModel.ISupportInitialize)GithubIcon).EndInit();
 			((System.ComponentModel.ISupportInitialize)InfoIcon).EndInit();

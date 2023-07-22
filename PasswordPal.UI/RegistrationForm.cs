@@ -13,7 +13,6 @@ public partial class RegistrationForm : Form
 		InitializeComponent();
 		Methods.InitializeIcons(HelpIcon, InfoIcon, GithubIcon, BackIcon);
 
-		Text = @"PasswordPal - Register";
 		passwordTextBox.PasswordChar = Constants.PASSWORD_CHAR;
 		confirmPasswordTextBox.PasswordChar = Constants.PASSWORD_CHAR;
 		_previousFormLocation = location;

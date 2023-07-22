@@ -243,8 +243,9 @@
 			Controls.Add(UsernameTextBox);
 			Controls.Add(TitleTextBox);
 			Controls.Add(SaveBtn);
+			Icon = (Icon)resources.GetObject("$this.Icon");
 			Name = "CreatePasswordForm";
-			Text = "Form1";
+			Text = "PasswordPal - Add Item";
 			Load += CreatePasswordFormLoad;
 			((System.ComponentModel.ISupportInitialize)LockIcon).EndInit();
 			((System.ComponentModel.ISupportInitialize)GithubIcon).EndInit();
