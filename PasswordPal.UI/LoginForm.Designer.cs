@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
 			usernameTextBox = new TextBox();
 			passwordTextBox = new TextBox();
 			usernameLabel = new Label();
@@ -35,6 +36,12 @@
 			LoginBtn = new Button();
 			passwordPalLabel = new Label();
 			SignUpBtn = new Button();
+			HelpIcon = new PictureBox();
+			InfoIcon = new PictureBox();
+			GithubIcon = new PictureBox();
+			((System.ComponentModel.ISupportInitialize)HelpIcon).BeginInit();
+			((System.ComponentModel.ISupportInitialize)InfoIcon).BeginInit();
+			((System.ComponentModel.ISupportInitialize)GithubIcon).BeginInit();
 			SuspendLayout();
 			// 
 			// usernameTextBox
@@ -101,11 +108,47 @@
 			SignUpBtn.UseVisualStyleBackColor = true;
 			SignUpBtn.Click += SignUpBtn_Click;
 			// 
+			// HelpIcon
+			// 
+			HelpIcon.Image = (Image)resources.GetObject("HelpIcon.Image");
+			HelpIcon.Location = new Point(648, 16);
+			HelpIcon.Name = "HelpIcon";
+			HelpIcon.Size = new Size(37, 41);
+			HelpIcon.SizeMode = PictureBoxSizeMode.StretchImage;
+			HelpIcon.TabIndex = 7;
+			HelpIcon.TabStop = false;
+			HelpIcon.Click += Help_Click;
+			// 
+			// InfoIcon
+			// 
+			InfoIcon.Image = (Image)resources.GetObject("InfoIcon.Image");
+			InfoIcon.Location = new Point(691, 12);
+			InfoIcon.Name = "InfoIcon";
+			InfoIcon.Size = new Size(49, 49);
+			InfoIcon.SizeMode = PictureBoxSizeMode.StretchImage;
+			InfoIcon.TabIndex = 8;
+			InfoIcon.TabStop = false;
+			InfoIcon.Click += InfoIcon_Click;
+			// 
+			// GithubIcon
+			// 
+			GithubIcon.Image = (Image)resources.GetObject("GithubIcon.Image");
+			GithubIcon.Location = new Point(737, 12);
+			GithubIcon.Name = "GithubIcon";
+			GithubIcon.Size = new Size(51, 49);
+			GithubIcon.SizeMode = PictureBoxSizeMode.StretchImage;
+			GithubIcon.TabIndex = 9;
+			GithubIcon.TabStop = false;
+			GithubIcon.Click += GithubIcon_Click;
+			// 
 			// LoginForm
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(800, 450);
+			Controls.Add(GithubIcon);
+			Controls.Add(InfoIcon);
+			Controls.Add(HelpIcon);
 			Controls.Add(SignUpBtn);
 			Controls.Add(passwordPalLabel);
 			Controls.Add(LoginBtn);
@@ -115,6 +158,9 @@
 			Controls.Add(usernameTextBox);
 			Name = "LoginForm";
 			Text = "LoginForm";
+			((System.ComponentModel.ISupportInitialize)HelpIcon).EndInit();
+			((System.ComponentModel.ISupportInitialize)InfoIcon).EndInit();
+			((System.ComponentModel.ISupportInitialize)GithubIcon).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -128,5 +174,8 @@
 		private Button LoginBtn;
 		private Label passwordPalLabel;
 		private Button SignUpBtn;
+		private PictureBox HelpIcon;
+		private PictureBox InfoIcon;
+		private PictureBox GithubIcon;
 	}
 }

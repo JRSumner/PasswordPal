@@ -1,4 +1,5 @@
-﻿using System.Reflection.Metadata;
+﻿using System.Diagnostics;
+using System.Reflection.Metadata;
 using PasswordPal.Services.Database;
 using PasswordPal.Services.Services;
 using PasswordPal.UI.Common;
@@ -10,7 +11,7 @@ public partial class LoginForm : Form
 	public LoginForm()
 	{
 		InitializeComponent();
-
+		InitializeIcons();
 		passwordTextBox.PasswordChar = Constants.PASSWORD_CHAR;
 	}
 
@@ -57,5 +58,49 @@ public partial class LoginForm : Form
 	private void RegistrationFormClosed(object sender, EventArgs e)
 	{
 		Show();
+	}
+
+	private async void Help_Click(object sender, EventArgs e)
+	{
+		HelpIcon.Image = Properties.Resources.notepad_icon_clicked;
+		await Task.Delay(100);
+		HelpIcon.Image = Properties.Resources.notepad_icon;
+	}
+
+	private async void InfoIcon_Click(object sender, EventArgs e)
+	{
+		InfoIcon.Image = Properties.Resources.info_icon_clicked;
+		await Task.Delay(100);
+		InfoIcon.Image = Properties.Resources.info_icon;
+	}
+
+	private async void GithubIcon_Click(object sender, EventArgs e)
+	{
+		GithubIcon.Image = Properties.Resources.github_icon_clicked;
+		await Task.Delay(100);
+		GithubIcon.Image = Properties.Resources.github_icon;
+
+		var githubLink = "https://github.com/jrsumner";
+		var psi = new ProcessStartInfo
+		{
+			FileName = githubLink,
+			UseShellExecute = true
+		};
+
+		Process.Start(psi);
+	}
+
+	private void InitializeIcons()
+	{
+		var toolTip = new ToolTip();
+
+		HelpIcon.Cursor = Cursors.Hand;
+		toolTip.SetToolTip(HelpIcon, "Help");
+
+		InfoIcon.Cursor = Cursors.Hand;
+		toolTip.SetToolTip(InfoIcon, "Info");
+
+		GithubIcon.Cursor = Cursors.Hand;
+		toolTip.SetToolTip(GithubIcon, "Github");
 	}
 }
