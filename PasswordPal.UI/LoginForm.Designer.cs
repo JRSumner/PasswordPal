@@ -34,14 +34,16 @@
 			usernameLabel = new Label();
 			passwordLabel = new Label();
 			LoginBtn = new Button();
-			passwordPalLabel = new Label();
+			PasswordPalLabel = new Label();
 			SignUpBtn = new Button();
 			HelpIcon = new PictureBox();
 			InfoIcon = new PictureBox();
 			GithubIcon = new PictureBox();
+			LockIcon = new PictureBox();
 			((System.ComponentModel.ISupportInitialize)HelpIcon).BeginInit();
 			((System.ComponentModel.ISupportInitialize)InfoIcon).BeginInit();
 			((System.ComponentModel.ISupportInitialize)GithubIcon).BeginInit();
+			((System.ComponentModel.ISupportInitialize)LockIcon).BeginInit();
 			SuspendLayout();
 			// 
 			// usernameTextBox
@@ -62,7 +64,8 @@
 			// 
 			usernameLabel.AutoSize = true;
 			usernameLabel.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-			usernameLabel.Location = new Point(140, 167);
+			usernameLabel.ForeColor = Color.FromArgb(64, 64, 64);
+			usernameLabel.Location = new Point(153, 167);
 			usernameLabel.Name = "usernameLabel";
 			usernameLabel.Size = new Size(98, 25);
 			usernameLabel.TabIndex = 2;
@@ -72,7 +75,8 @@
 			// 
 			passwordLabel.AutoSize = true;
 			passwordLabel.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-			passwordLabel.Location = new Point(140, 206);
+			passwordLabel.ForeColor = Color.FromArgb(64, 64, 64);
+			passwordLabel.Location = new Point(160, 204);
 			passwordLabel.Name = "passwordLabel";
 			passwordLabel.Size = new Size(91, 25);
 			passwordLabel.TabIndex = 3;
@@ -88,15 +92,16 @@
 			LoginBtn.UseVisualStyleBackColor = true;
 			LoginBtn.Click += LoginBtn_Click;
 			// 
-			// passwordPalLabel
+			// PasswordPalLabel
 			// 
-			passwordPalLabel.AutoSize = true;
-			passwordPalLabel.Font = new Font("Segoe UI Semibold", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
-			passwordPalLabel.Location = new Point(313, 37);
-			passwordPalLabel.Name = "passwordPalLabel";
-			passwordPalLabel.Size = new Size(180, 40);
-			passwordPalLabel.TabIndex = 5;
-			passwordPalLabel.Text = "PasswordPal";
+			PasswordPalLabel.AutoSize = true;
+			PasswordPalLabel.Font = new Font("Segoe UI Semibold", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
+			PasswordPalLabel.ForeColor = Color.FromArgb(64, 64, 64);
+			PasswordPalLabel.Location = new Point(364, 110);
+			PasswordPalLabel.Name = "PasswordPalLabel";
+			PasswordPalLabel.Size = new Size(180, 40);
+			PasswordPalLabel.TabIndex = 5;
+			PasswordPalLabel.Text = "PasswordPal";
 			// 
 			// SignUpBtn
 			// 
@@ -141,16 +146,28 @@
 			GithubIcon.TabStop = false;
 			GithubIcon.Click += GithubIcon_Click;
 			// 
+			// LockIcon
+			// 
+			LockIcon.Image = (Image)resources.GetObject("LockIcon.Image");
+			LockIcon.Location = new Point(285, 82);
+			LockIcon.Name = "LockIcon";
+			LockIcon.Size = new Size(73, 68);
+			LockIcon.SizeMode = PictureBoxSizeMode.StretchImage;
+			LockIcon.TabIndex = 10;
+			LockIcon.TabStop = false;
+			// 
 			// LoginForm
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
+			BackColor = SystemColors.ActiveCaption;
 			ClientSize = new Size(800, 450);
+			Controls.Add(LockIcon);
 			Controls.Add(GithubIcon);
 			Controls.Add(InfoIcon);
 			Controls.Add(HelpIcon);
 			Controls.Add(SignUpBtn);
-			Controls.Add(passwordPalLabel);
+			Controls.Add(PasswordPalLabel);
 			Controls.Add(LoginBtn);
 			Controls.Add(passwordLabel);
 			Controls.Add(usernameLabel);
@@ -161,6 +178,7 @@
 			((System.ComponentModel.ISupportInitialize)HelpIcon).EndInit();
 			((System.ComponentModel.ISupportInitialize)InfoIcon).EndInit();
 			((System.ComponentModel.ISupportInitialize)GithubIcon).EndInit();
+			((System.ComponentModel.ISupportInitialize)LockIcon).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -172,10 +190,11 @@
 		private Label usernameLabel;
 		private Label passwordLabel;
 		private Button LoginBtn;
-		private Label passwordPalLabel;
+		private Label PasswordPalLabel;
 		private Button SignUpBtn;
 		private PictureBox HelpIcon;
 		private PictureBox InfoIcon;
 		private PictureBox GithubIcon;
+		private PictureBox LockIcon;
 	}
 }

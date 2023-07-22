@@ -1,5 +1,4 @@
 ﻿using PasswordPal.Core.Models;
-using PasswordPal.Services.Database;
 using PasswordPal.Services.Services;
 using PasswordPal.UI.Common;
 
@@ -10,7 +9,7 @@ public partial class RegistrationForm : Form
 	public RegistrationForm()
 	{
 		InitializeComponent();
-
+		InitializeIcons();
 		passwordTextBox.PasswordChar = Constants.PASSWORD_CHAR;
 		confirmPasswordTextBox.PasswordChar = Constants.PASSWORD_CHAR;
 	}
@@ -50,7 +49,7 @@ public partial class RegistrationForm : Form
 				loginForm.Show();
 				Hide();
 			}
-			
+
 			foreach (var textBox in textBoxes) textBox.Clear();
 		}
 		catch (Exception exception)
@@ -58,5 +57,34 @@ public partial class RegistrationForm : Form
 			MessageBox.Show($@"The following error occurred:{exception}", Constants.MESSAGE_BOX_TITLE_ERROR);
 			throw;
 		}
+	}
+
+	private async void Help_Click(object sender, EventArgs e)
+	{
+		await Methods.HelpClickCommon(HelpIcon);
+	}
+
+	private async void InfoIcon_Click(object sender, EventArgs e)
+	{
+		await Methods.InfoClickCommon(InfoIcon);
+	}
+
+	private async void GithubIcon_Click(object sender, EventArgs e)
+	{
+		await Methods.GithubClickCommon(GithubIcon);
+	}
+
+	private void InitializeIcons()
+	{
+		var toolTip = new ToolTip();
+
+		HelpIcon.Cursor = Cursors.Hand;
+		toolTip.SetToolTip(HelpIcon, "Help");
+
+		InfoIcon.Cursor = Cursors.Hand;
+		toolTip.SetToolTip(InfoIcon, "Info");
+
+		GithubIcon.Cursor = Cursors.Hand;
+		toolTip.SetToolTip(GithubIcon, "Github");
 	}
 }

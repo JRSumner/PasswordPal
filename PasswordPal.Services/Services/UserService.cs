@@ -3,109 +3,108 @@ using Core.Models.Responses;
 using PasswordPal.Core.Models;
 using PasswordPal.Services.Database;
 
-namespace PasswordPal.Services.Services
+namespace PasswordPal.Services.Services;
+
+public class UserService
 {
-	public class UserService
+	public static void AddUser(User user)
 	{
-		public static void AddUser(User user)
+		using var context = new Context();
+		context.Add(user);
+		context.SaveChanges();
+	}
+
+	public static void RemoveUser(User user)
+	{
+		using var context = new Context();
+		context.Remove(user);
+		context.SaveChanges();
+	}
+
+	public static UserResponse GetUser(string username)
+	{
+		using var context = new Context();
+		var user = context.User.FirstOrDefault(u => u.Username == username);
+		var userResponse = new UserResponse();
+
+		if (user != null)
 		{
-			using var context = new Context();
-			context.Add(user);
-			context.SaveChanges();
-		}
-
-		public static void RemoveUser(User user)
-		{
-			using var context = new Context();
-			context.Remove(user);
-			context.SaveChanges();
-		}
-
-		public static UserResponse GetUser(string username)
-		{
-			using var context = new Context();
-			var user = context.User.FirstOrDefault(u => u.Username == username);
-			var userResponse = new UserResponse();
-
-			if (user != null)
-			{
-				userResponse.User = user;
-				userResponse.Success = true;
-
-				return userResponse;
-			}
-
-			userResponse.Success = false;
-			userResponse.Response = $"Unable to find user with username :{username}";
+			userResponse.User = user;
+			userResponse.Success = true;
 
 			return userResponse;
 		}
 
-		public static bool UserExists(string username)
+		userResponse.Success = false;
+		userResponse.Response = $"Unable to find user with username :{username}";
+
+		return userResponse;
+	}
+
+	public static bool UserExists(string username)
+	{
+		using var context = new Context();
+
+		return context.User.Any(u => u.Username == username);
+	}
+
+	public static ValidationResult UniqueUsernameAndEmail(User user)
+	{
+		var result = new ValidationResult
 		{
-			using var context = new Context();
+			IsValid = true
+		};
 
-			return context.User.Any(u => u.Username == username);
-		}
+		using var context = new Context();
 
-		public static ValidationResult UniqueUsernameAndEmail(User user)
+		if (context.User.Any(u => u.Username == user.Username))
 		{
-			var result = new ValidationResult
-			{
-				IsValid = true
-			};
-
-			using var context = new Context();
-
-			if (context.User.Any(u => u.Username == user.Username))
-			{
-				result.IsValid = false;
-				result.Message = @"Username already exists, please try a different username";
-
-				return result;
-			}
-
-			if (context.User.Any(u => u.Email == user.Email))
-			{
-				result.IsValid = false;
-				result.Message = @"Please register with a different email, a user has already registered using this email.";
-			}
+			result.IsValid = false;
+			result.Message = @"Username already exists, please try a different username";
 
 			return result;
 		}
 
-		public static ValidationResult ValidUserRegistration(List<string> textBoxString, string? password, string? confirmedPassword, User user)
+		if (context.User.Any(u => u.Email == user.Email))
 		{
-			var result = new ValidationResult
-			{
-				IsValid = true
-			};
+			result.IsValid = false;
+			result.Message = @"Please register with a different email, a user has already registered using this email.";
+		}
 
-			var allFieldsArePopulatedResult = UserInterfaceService.AllFieldsArePopulated(textBoxString);
-			var passwordMatchesConfirmationResult = PasswordService.PasswordMatchesConfirmation(password, confirmedPassword);
-			var uniqueUsernameAndEmailResult = UniqueUsernameAndEmail(user);
+		return result;
+	}
 
-			if (!allFieldsArePopulatedResult.IsValid)
-			{
-				result.IsValid = false;
-				result.Message = allFieldsArePopulatedResult.Message;
+	public static ValidationResult ValidUserRegistration(List<string> textBoxString, string? password, string? confirmedPassword, User user)
+	{
+		var result = new ValidationResult
+		{
+			IsValid = true
+		};
 
-				return result;
-			}
+		var allFieldsArePopulatedResult = UserInterfaceService.AllFieldsArePopulated(textBoxString);
+		var passwordMatchesConfirmationResult = PasswordService.PasswordMatchesConfirmation(password, confirmedPassword);
+		var uniqueUsernameAndEmailResult = UniqueUsernameAndEmail(user);
 
-			if (!passwordMatchesConfirmationResult.IsValid)
-			{
-				result.IsValid = false;
-				result.Message = passwordMatchesConfirmationResult.Message;
-			}
-
-			if (!uniqueUsernameAndEmailResult.IsValid)
-			{
-				result.IsValid = false;
-				result.Message = uniqueUsernameAndEmailResult.Message;
-			}
+		if (!allFieldsArePopulatedResult.IsValid)
+		{
+			result.IsValid = false;
+			result.Message = allFieldsArePopulatedResult.Message;
 
 			return result;
 		}
+
+		if (!passwordMatchesConfirmationResult.IsValid)
+		{
+			result.IsValid = false;
+			result.Message = passwordMatchesConfirmationResult.Message;
+		}
+
+		if (!uniqueUsernameAndEmailResult.IsValid)
+		{
+			result.IsValid = false;
+			result.Message = uniqueUsernameAndEmailResult.Message;
+		}
+
+		return result;
 	}
 }

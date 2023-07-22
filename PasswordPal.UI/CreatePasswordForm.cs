@@ -1,6 +1,7 @@
 using System.Globalization;
 using PasswordPal.Core.Models;
 using PasswordPal.Services.Services;
+using PasswordPal.UI.Common;
 
 namespace PasswordPal.UI;
 
@@ -41,5 +42,38 @@ public partial class CreatePasswordForm : Form
 		var storedPasswordForm = new StoredPasswordsForm();
 		storedPasswordForm.Show();
 		Close();
+	}
+
+	private void CreatePasswordForm_Load(object sender, EventArgs e)
+	{
+	}
+
+	private async void Help_Click(object sender, EventArgs e)
+	{
+		await Methods.HelpClickCommon(HelpIcon);
+	}
+
+	private async void InfoIcon_Click(object sender, EventArgs e)
+	{
+		await Methods.InfoClickCommon(InfoIcon);
+	}
+
+	private async void GithubIcon_Click(object sender, EventArgs e)
+	{
+		await Methods.GithubClickCommon(GithubIcon);
+	}
+
+	private void InitializeIcons()
+	{
+		var toolTip = new ToolTip();
+
+		HelpIcon.Cursor = Cursors.Hand;
+		toolTip.SetToolTip(HelpIcon, "Help");
+
+		InfoIcon.Cursor = Cursors.Hand;
+		toolTip.SetToolTip(InfoIcon, "Info");
+
+		GithubIcon.Cursor = Cursors.Hand;
+		toolTip.SetToolTip(GithubIcon, "Github");
 	}
 }

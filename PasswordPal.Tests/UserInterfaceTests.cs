@@ -1,36 +1,35 @@
 ﻿using PasswordPal.Services.Services;
 using Xunit;
 
-namespace PasswordPal.Tests
+namespace PasswordPal.Tests;
+
+public class UserInterfaceTests
 {
-	public class UserInterfaceTests
+	[Fact]
+	public void AllFieldsArePopulated_ReturnsTrue_WhenAllFieldsArePopulated()
 	{
-		[Fact]
-		public void AllFieldsArePopulated_ReturnsTrue_WhenAllFieldsArePopulated()
+		var fields = new List<string>
 		{
-			var fields = new List<string>
-			{
-				"Some text",
-				"Some other text"
-			};
+			"Some text",
+			"Some other text"
+		};
 
-			var result = UserInterfaceService.AllFieldsArePopulated(fields);
+		var result = UserInterfaceService.AllFieldsArePopulated(fields);
 
-			Assert.True(result.IsValid);
-		}
+		Assert.True(result.IsValid);
+	}
 
-		[Fact]
-		public void AllFieldsArePopulated_ReturnsFalse_WhenAnyFieldIsEmpty()
+	[Fact]
+	public void AllFieldsArePopulated_ReturnsFalse_WhenAnyFieldIsEmpty()
+	{
+		var fields = new List<string>
 		{
-			var fields = new List<string>
-			{
-				"Some text",
-				string.Empty
-			};
+			"Some text",
+			string.Empty
+		};
 
-			var result = UserInterfaceService.AllFieldsArePopulated(fields);
+		var result = UserInterfaceService.AllFieldsArePopulated(fields);
 
-			Assert.False(result.IsValid);
-		}
+		Assert.False(result.IsValid);
 	}
 }

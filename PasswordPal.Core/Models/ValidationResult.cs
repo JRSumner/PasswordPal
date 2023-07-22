@@ -1,8 +1,7 @@
-﻿namespace Core.Models
+﻿namespace Core.Models;
+
+public class ValidationResult
 {
-	public class ValidationResult
-	{
-		public bool IsValid { get; set; }
-		public string? Message { get; set; }
-	}
+	public bool IsValid { get; set; }
+	public string? Message { get; set; }
 }

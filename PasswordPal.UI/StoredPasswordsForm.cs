@@ -1,5 +1,4 @@
-﻿using PasswordPal.Services.Database;
-using PasswordPal.Services.Services;
+﻿using PasswordPal.Services.Services;
 
 namespace PasswordPal.UI;
 
@@ -39,5 +38,10 @@ public partial class StoredPasswordsForm : Form
 	private void CloseCreatePasswordForm(object sender, EventArgs e)
 	{
 		Show();
+	}
+
+	private void StoredPasswordsForm_Load(object sender, EventArgs e)
+	{
+
 	}
 }
