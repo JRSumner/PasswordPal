@@ -10,6 +10,8 @@ public partial class StoredPasswordsForm : Form
 	{
 		InitializeComponent();
 		DisplayStoredPasswords();
+
+		Text = @"PasswordPal - Stored Items";
 		_previousFormLocation = location;
 	}
 

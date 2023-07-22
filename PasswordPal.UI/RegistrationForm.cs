@@ -12,6 +12,8 @@ public partial class RegistrationForm : Form
 	{
 		InitializeComponent();
 		InitializeIcons();
+
+		Text = @"PasswordPal - Register";
 		passwordTextBox.PasswordChar = Constants.PASSWORD_CHAR;
 		confirmPasswordTextBox.PasswordChar = Constants.PASSWORD_CHAR;
 		_previousFormLocation = location;

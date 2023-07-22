@@ -12,6 +12,8 @@ public partial class CreatePasswordForm : Form
 	public CreatePasswordForm(Point location)
 	{
 		InitializeComponent();
+
+		Text = @"PasswordPal - Create";
 		_previousFormLocation = location;
 	}
 
