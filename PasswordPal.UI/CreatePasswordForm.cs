@@ -12,6 +12,7 @@ public partial class CreatePasswordForm : Form
 	public CreatePasswordForm(Point location)
 	{
 		InitializeComponent();
+		Methods.InitializeIcons(HelpIcon, InfoIcon, GithubIcon, BackIcon);
 
 		Text = @"PasswordPal - Add Item";
 		_previousFormLocation = location;
@@ -73,25 +74,12 @@ public partial class CreatePasswordForm : Form
 	{
 		await Methods.GithubClickCommon(GithubIcon);
 	}
+
 	private async void BackIconClick(object sender, EventArgs e)
 	{
 		await Methods.BackClickCommon(BackIcon);
 		var storedPasswordFrom = new StoredPasswordsForm(Location);
 		storedPasswordFrom.Show();
 		Close();
-	}
-
-	private void InitializeIcons()
-	{
-		var toolTip = new ToolTip();
-
-		HelpIcon.Cursor = Cursors.Hand;
-		toolTip.SetToolTip(HelpIcon, "Help");
-
-		InfoIcon.Cursor = Cursors.Hand;
-		toolTip.SetToolTip(InfoIcon, "Info");
-
-		GithubIcon.Cursor = Cursors.Hand;
-		toolTip.SetToolTip(GithubIcon, "Github");
 	}
 }

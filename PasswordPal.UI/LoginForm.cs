@@ -10,7 +10,7 @@ public partial class LoginForm : Form
 	public LoginForm(Point location = default(Point))
 	{
 		InitializeComponent();
-		InitializeIcons();
+		Methods.InitializeIcons(HelpIcon, InfoIcon, GithubIcon);
 
 		Text = @"PasswordPal - Login";
 		passwordTextBox.PasswordChar = Constants.PASSWORD_CHAR;
@@ -75,19 +75,5 @@ public partial class LoginForm : Form
 	private async void GithubIconClick(object sender, EventArgs e)
 	{
 		await Methods.GithubClickCommon(GithubIcon);
-	}
-
-	private void InitializeIcons()
-	{
-		var toolTip = new ToolTip();
-	
-		HelpIcon.Cursor = Cursors.Hand;
-		toolTip.SetToolTip(HelpIcon, "Help");
-	
-		InfoIcon.Cursor = Cursors.Hand;
-		toolTip.SetToolTip(InfoIcon, "Info");
-	
-		GithubIcon.Cursor = Cursors.Hand;
-		toolTip.SetToolTip(GithubIcon, "Github");
 	}
 }

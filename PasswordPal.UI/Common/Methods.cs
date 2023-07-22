@@ -40,4 +40,24 @@ public class Methods
 		await Task.Delay(100);
 		backIcon.Image = Properties.Resources.back_icon;
 	}
+
+	public static void InitializeIcons(Control helpIcon, Control infoIcon, Control githubIcon, Control? backIcon = null)
+	{
+		var toolTip = new ToolTip();
+
+		helpIcon.Cursor = Cursors.Hand;
+		toolTip.SetToolTip(helpIcon, "Help");
+
+		infoIcon.Cursor = Cursors.Hand;
+		toolTip.SetToolTip(infoIcon, "Info");
+
+		githubIcon.Cursor = Cursors.Hand;
+		toolTip.SetToolTip(githubIcon, "Github");
+
+		if (backIcon != null)
+		{
+			backIcon.Cursor = Cursors.Hand;
+			toolTip.SetToolTip(backIcon, "Back");
+		}
+	}
 }

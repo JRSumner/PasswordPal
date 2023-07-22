@@ -11,7 +11,7 @@ public partial class RegistrationForm : Form
 	public RegistrationForm(Point location)
 	{
 		InitializeComponent();
-		InitializeIcons();
+		Methods.InitializeIcons(HelpIcon, InfoIcon, GithubIcon, BackIcon);
 
 		Text = @"PasswordPal - Register";
 		passwordTextBox.PasswordChar = Constants.PASSWORD_CHAR;
@@ -91,22 +91,5 @@ public partial class RegistrationForm : Form
 		var loginForm = new LoginForm(Location);
 		loginForm.Show();
 		Close();
-	}
-
-	private void InitializeIcons()
-	{
-		var toolTip = new ToolTip();
-
-		HelpIcon.Cursor = Cursors.Hand;
-		toolTip.SetToolTip(HelpIcon, "Help");
-
-		InfoIcon.Cursor = Cursors.Hand;
-		toolTip.SetToolTip(InfoIcon, "Info");
-
-		GithubIcon.Cursor = Cursors.Hand;
-		toolTip.SetToolTip(GithubIcon, "Github");
-
-		BackIcon.Cursor = Cursors.Hand;
-		toolTip.SetToolTip(BackIcon, "Back");
 	}
 }
