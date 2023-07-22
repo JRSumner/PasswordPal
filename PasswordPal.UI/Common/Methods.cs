@@ -14,11 +14,14 @@ public class Methods
 		helpForm.ShowDialog();
 	}
 
-	public static async Task InfoClickCommon(PictureBox infoIcon)
+	public static async Task InfoClickCommon(PictureBox infoIcon, string? calledForm, Point location = default(Point))
 	{
 		infoIcon.Image = Properties.Resources.info_icon_clicked;
 		await Task.Delay(100);
 		infoIcon.Image = Properties.Resources.info_icon;
+
+		var infoForm = new InfoForm(location, calledForm);
+		infoForm.ShowDialog();
 	}
 		
 	public static async Task GithubClickCommon(PictureBox githubIcon)

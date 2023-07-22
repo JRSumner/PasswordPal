@@ -69,7 +69,8 @@ public partial class LoginForm : Form
 
 	private async void InfoIconClick(object sender, EventArgs e)
 	{
-		await Methods.InfoClickCommon(InfoIcon);
+		Hide();
+		await Methods.InfoClickCommon(InfoIcon, "loginForm", Location);
 	}
 
 	private async void GithubIconClick(object sender, EventArgs e)
