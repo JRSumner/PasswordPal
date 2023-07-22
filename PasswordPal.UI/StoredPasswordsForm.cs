@@ -52,7 +52,8 @@ public partial class StoredPasswordsForm : Form
 
 	private async void HelpIconClick(object sender, EventArgs e)
 	{
-		await Methods.HelpClickCommon(HelpIcon);
+		Hide();
+		await Methods.HelpClickCommon(HelpIcon, "storedPasswordsForm", Location);
 	}
 
 	private async void InfoIconClick(object sender, EventArgs e)

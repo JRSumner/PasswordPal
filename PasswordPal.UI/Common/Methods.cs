@@ -4,11 +4,14 @@ namespace PasswordPal.UI.Common;
 
 public class Methods
 {
-	public static async Task HelpClickCommon(PictureBox helpIcon)
+	public static async Task HelpClickCommon(PictureBox helpIcon, string? calledForm, Point location = default(Point))
 	{
 		helpIcon.Image = Properties.Resources.notepad_icon_clicked;
 		await Task.Delay(100);
 		helpIcon.Image = Properties.Resources.notepad_icon;
+
+		var helpForm = new HelpForm(location, calledForm);
+		helpForm.ShowDialog();
 	}
 
 	public static async Task InfoClickCommon(PictureBox infoIcon)

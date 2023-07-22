@@ -71,7 +71,8 @@ public partial class RegistrationForm : Form
 
 	private async void HelpIconClick(object sender, EventArgs e)
 	{
-		await Methods.HelpClickCommon(HelpIcon);
+		Hide();
+		await Methods.HelpClickCommon(HelpIcon, "registrationForm", Location);
 	}
 
 	private async void InfoIconClick(object sender, EventArgs e)

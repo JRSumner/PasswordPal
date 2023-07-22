@@ -63,7 +63,8 @@ public partial class LoginForm : Form
 
 	private async void HelpIconClick(object sender, EventArgs e)
 	{
-		await Methods.HelpClickCommon(HelpIcon);
+		Hide();
+		await Methods.HelpClickCommon(HelpIcon, "loginForm", Location);
 	}
 
 	private async void InfoIconClick(object sender, EventArgs e)
