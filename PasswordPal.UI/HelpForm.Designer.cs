@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HelpForm));
-			AboutLabel = new Label();
+			HelpLabel = new Label();
 			LockIcon = new PictureBox();
 			PasswordPalLabel = new Label();
 			BackIcon = new PictureBox();
@@ -37,15 +37,15 @@
 			((System.ComponentModel.ISupportInitialize)BackIcon).BeginInit();
 			SuspendLayout();
 			// 
-			// AboutLabel
+			// HelpLabel
 			// 
-			AboutLabel.AutoSize = true;
-			AboutLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-			AboutLabel.Location = new Point(12, 191);
-			AboutLabel.Name = "AboutLabel";
-			AboutLabel.Size = new Size(86, 15);
-			AboutLabel.TabIndex = 0;
-			AboutLabel.Text = "Help Info here.";
+			HelpLabel.AutoSize = true;
+			HelpLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+			HelpLabel.Location = new Point(12, 154);
+			HelpLabel.Name = "HelpLabel";
+			HelpLabel.Size = new Size(32, 15);
+			HelpLabel.TabIndex = 0;
+			HelpLabel.Text = "Help";
 			// 
 			// LockIcon
 			// 
@@ -88,7 +88,7 @@
 			Controls.Add(BackIcon);
 			Controls.Add(PasswordPalLabel);
 			Controls.Add(LockIcon);
-			Controls.Add(AboutLabel);
+			Controls.Add(HelpLabel);
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			Name = "HelpForm";
 			Text = "PasswordPal - Help";
@@ -100,7 +100,7 @@
 
 		#endregion
 
-		private Label AboutLabel;
+		private Label HelpLabel;
 		private PictureBox LockIcon;
 		private Label PasswordPalLabel;
 		private PictureBox BackIcon;

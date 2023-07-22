@@ -42,9 +42,9 @@
 			AboutLabel.AutoSize = true;
 			AboutLabel.Location = new Point(12, 233);
 			AboutLabel.Name = "AboutLabel";
-			AboutLabel.Size = new Size(85, 15);
+			AboutLabel.Size = new Size(773, 165);
 			AboutLabel.TabIndex = 0;
-			AboutLabel.Text = "About this app";
+			AboutLabel.Text = resources.GetString("AboutLabel.Text");
 			// 
 			// LockIcon
 			// 

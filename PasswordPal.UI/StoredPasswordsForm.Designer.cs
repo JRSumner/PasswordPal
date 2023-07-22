@@ -30,7 +30,7 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StoredPasswordsForm));
 			dataGridView1 = new DataGridView();
-			AddBtn = new Button();
+			AddItemBtn = new Button();
 			LogoutBtn = new Button();
 			LockIcon = new PictureBox();
 			PasswordPalLabel = new Label();
@@ -53,15 +53,15 @@
 			dataGridView1.Size = new Size(450, 356);
 			dataGridView1.TabIndex = 0;
 			// 
-			// AddBtn
+			// AddItemBtn
 			// 
-			AddBtn.Location = new Point(12, 334);
-			AddBtn.Name = "AddBtn";
-			AddBtn.Size = new Size(262, 49);
-			AddBtn.TabIndex = 1;
-			AddBtn.Text = "Add";
-			AddBtn.UseVisualStyleBackColor = true;
-			AddBtn.Click += AddBtnClick;
+			AddItemBtn.Location = new Point(12, 334);
+			AddItemBtn.Name = "AddItemBtn";
+			AddItemBtn.Size = new Size(262, 49);
+			AddItemBtn.TabIndex = 1;
+			AddItemBtn.Text = "Add Item";
+			AddItemBtn.UseVisualStyleBackColor = true;
+			AddItemBtn.Click += AddBtnClick;
 			// 
 			// LogoutBtn
 			// 
@@ -139,7 +139,7 @@
 			Controls.Add(PasswordPalLabel);
 			Controls.Add(LockIcon);
 			Controls.Add(LogoutBtn);
-			Controls.Add(AddBtn);
+			Controls.Add(AddItemBtn);
 			Controls.Add(dataGridView1);
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			Name = "StoredPasswordsForm";
@@ -157,7 +157,7 @@
 		#endregion
 
 		private DataGridView dataGridView1;
-		private Button AddBtn;
+		private Button AddItemBtn;
 		private Button LogoutBtn;
 		private PictureBox LockIcon;
 		private Label PasswordPalLabel;

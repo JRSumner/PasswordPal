@@ -117,6 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutLabel.Text" xml:space="preserve">
+    <value>Welcome to my WinForms Password Storage App "PasswordPal"!
+
+As a learning project, I aimed to create a more challenging application than the typical to-do list. My goal was to add layers and depth to the user 
+experience.
+
+This app currently offers the following features:
+
+User Registration and Authentication: Your passwords are securely encrypted using advanced techniques like hashing and salting with PBKDF2.
+
+Password Item Storage: All data is stored in an MSSQL database, and you can easily manage your items through a user-friendly form, including 
+creating, reading, updating, and deleting items.</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="LockIcon.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
