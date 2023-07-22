@@ -4,10 +4,19 @@ namespace PasswordPal.UI;
 
 public partial class StoredPasswordsForm : Form
 {
-	public StoredPasswordsForm()
+	private Point previousLocation;
+
+	public StoredPasswordsForm(Point location)
 	{
 		InitializeComponent();
 		DisplayStoredPasswords();
+		previousLocation = location;
+	}
+
+	protected override void OnLoad(EventArgs e)
+	{
+		base.OnLoad(e);
+		Location = previousLocation;
 	}
 
 	private void DisplayStoredPasswords()
@@ -22,7 +31,7 @@ public partial class StoredPasswordsForm : Form
 
 	private void AddBtn_Click(object sender, EventArgs e)
 	{
-		var createPasswordForm = new CreatePasswordForm();
+		var createPasswordForm = new CreatePasswordForm(Location);
 		createPasswordForm.Show();
 		createPasswordForm.Closed += CloseCreatePasswordForm;
 		Hide();
@@ -30,7 +39,7 @@ public partial class StoredPasswordsForm : Form
 
 	private void LogoutBtn_Click(object sender, EventArgs e)
 	{
-		var loginForm = new LoginForm();
+		var loginForm = new LoginForm(Location);
 		loginForm.Show();
 		Close();
 	}

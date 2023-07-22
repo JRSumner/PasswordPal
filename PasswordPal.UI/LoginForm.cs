@@ -5,12 +5,20 @@ namespace PasswordPal.UI;
 
 public partial class LoginForm : Form
 {
-	public LoginForm()
+	private Point previousFormLocation;
+
+	public LoginForm(Point location = default(Point))
 	{
-		var iconsList = new List<PictureBox> {HelpIcon, InfoIcon, GithubIcon};
 		InitializeComponent();
 		InitializeIcons();
 		passwordTextBox.PasswordChar = Constants.PASSWORD_CHAR;
+		previousFormLocation = location;
+	}
+
+	protected override void OnLoad(EventArgs e)
+	{
+		base.OnLoad(e);
+		Location = previousFormLocation;
 	}
 
 	private void LoginBtn_Click(object sender, EventArgs e)
@@ -36,7 +44,7 @@ public partial class LoginForm : Form
 
 		if (PasswordService.VerifyPassword(enteredPassword, userResponse.User?.Password, userResponse.User.Salt))
 		{
-			var storedPasswordsForm = new StoredPasswordsForm();
+			var storedPasswordsForm = new StoredPasswordsForm(Location);
 			storedPasswordsForm.Show();
 			Hide();
 			return;
@@ -47,7 +55,7 @@ public partial class LoginForm : Form
 
 	private void SignUpBtn_Click(object sender, EventArgs e)
 	{
-		var registrationForm = new RegistrationForm();
+		var registrationForm = new RegistrationForm(Location);
 		registrationForm.Show();
 		registrationForm.FormClosed += RegistrationFormClosed;
 		Hide();
