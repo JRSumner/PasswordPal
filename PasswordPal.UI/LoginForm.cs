@@ -5,20 +5,20 @@ namespace PasswordPal.UI;
 
 public partial class LoginForm : Form
 {
-	private Point previousFormLocation;
+	private readonly Point _previousFormLocation;
 
 	public LoginForm(Point location = default(Point))
 	{
 		InitializeComponent();
 		InitializeIcons();
 		passwordTextBox.PasswordChar = Constants.PASSWORD_CHAR;
-		previousFormLocation = location;
+		_previousFormLocation = location;
 	}
 
 	protected override void OnLoad(EventArgs e)
 	{
 		base.OnLoad(e);
-		Location = previousFormLocation;
+		Location = _previousFormLocation;
 	}
 
 	private void LoginBtn_Click(object sender, EventArgs e)

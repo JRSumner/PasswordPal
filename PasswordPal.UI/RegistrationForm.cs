@@ -6,7 +6,7 @@ namespace PasswordPal.UI;
 
 public partial class RegistrationForm : Form
 {
-	private Point previousFormLocation;
+	private readonly Point _previousFormLocation;
 
 	public RegistrationForm(Point location)
 	{
@@ -14,13 +14,13 @@ public partial class RegistrationForm : Form
 		InitializeIcons();
 		passwordTextBox.PasswordChar = Constants.PASSWORD_CHAR;
 		confirmPasswordTextBox.PasswordChar = Constants.PASSWORD_CHAR;
-		previousFormLocation = location;
+		_previousFormLocation = location;
 	}
 
 	protected override void OnLoad(EventArgs e)
 	{
 		base.OnLoad(e);
-		Location = previousFormLocation;
+		Location = _previousFormLocation;
 	}
 
 	private void RegisterBtn_Click(object sender, EventArgs e)

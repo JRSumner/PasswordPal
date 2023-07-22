@@ -7,18 +7,18 @@ namespace PasswordPal.UI;
 
 public partial class CreatePasswordForm : Form
 {
-	private Point previousFormLocation;
+	private readonly Point _previousFormLocation;
 
 	public CreatePasswordForm(Point location)
 	{
 		InitializeComponent();
-		previousFormLocation = location;
+		_previousFormLocation = location;
 	}
 
 	protected override void OnLoad(EventArgs e)
 	{
 		base.OnLoad(e);
-		Location = previousFormLocation;
+		Location = _previousFormLocation;
 	}
 
 	private void CreatePasswordBtn_Click(object sender, EventArgs e)

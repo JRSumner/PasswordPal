@@ -4,19 +4,19 @@ namespace PasswordPal.UI;
 
 public partial class StoredPasswordsForm : Form
 {
-	private Point previousLocation;
+	private readonly Point _previousFormLocation;
 
 	public StoredPasswordsForm(Point location)
 	{
 		InitializeComponent();
 		DisplayStoredPasswords();
-		previousLocation = location;
+		_previousFormLocation = location;
 	}
 
 	protected override void OnLoad(EventArgs e)
 	{
 		base.OnLoad(e);
-		Location = previousLocation;
+		Location = _previousFormLocation;
 	}
 
 	private void DisplayStoredPasswords()
