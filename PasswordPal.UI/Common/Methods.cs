@@ -33,4 +33,11 @@ public class Methods
 		
 		Process.Start(psi);
 	}
+
+	public static async Task BackClickCommon(PictureBox backIcon)
+	{
+		backIcon.Image = Properties.Resources.back_icon_clicked;
+		await Task.Delay(100);
+		backIcon.Image = Properties.Resources.back_icon;
+	}
 }

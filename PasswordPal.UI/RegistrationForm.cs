@@ -54,7 +54,7 @@ public partial class RegistrationForm : Form
 			if (UserService.UserExists(user.Username))
 			{
 				MessageBox.Show(@"Registration successful!", Constants.MESSAGE_BOX_TITLE_SUCCESS);
-				var loginForm = new LoginForm();
+				var loginForm = new LoginForm(Location);
 				loginForm.Show();
 				Hide();
 			}
@@ -83,6 +83,14 @@ public partial class RegistrationForm : Form
 		await Methods.GithubClickCommon(GithubIcon);
 	}
 
+	private async void BackIconClick(object sender, EventArgs e)
+	{
+		await Methods.BackClickCommon(BackIcon);
+		var loginForm = new LoginForm(Location);
+		loginForm.Show();
+		Close();
+	}
+
 	private void InitializeIcons()
 	{
 		var toolTip = new ToolTip();
@@ -95,5 +103,8 @@ public partial class RegistrationForm : Form
 
 		GithubIcon.Cursor = Cursors.Hand;
 		toolTip.SetToolTip(GithubIcon, "Github");
+
+		BackIcon.Cursor = Cursors.Hand;
+		toolTip.SetToolTip(BackIcon, "Back");
 	}
 }

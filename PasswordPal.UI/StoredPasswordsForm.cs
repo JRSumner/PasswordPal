@@ -33,7 +33,6 @@ public partial class StoredPasswordsForm : Form
 	{
 		var createPasswordForm = new CreatePasswordForm(Location);
 		createPasswordForm.Show();
-		createPasswordForm.Closed += CloseCreatePasswordForm;
 		Hide();
 	}
 
@@ -44,13 +43,7 @@ public partial class StoredPasswordsForm : Form
 		Close();
 	}
 
-	private void CloseCreatePasswordForm(object sender, EventArgs e)
-	{
-		Show();
-	}
-
 	private void StoredPasswordsForm_Load(object sender, EventArgs e)
 	{
-
 	}
 }

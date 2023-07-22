@@ -71,6 +71,13 @@ public partial class CreatePasswordForm : Form
 	{
 		await Methods.GithubClickCommon(GithubIcon);
 	}
+	private async void BackIconClick(object sender, EventArgs e)
+	{
+		await Methods.BackClickCommon(BackIcon);
+		var storedPasswordFrom = new StoredPasswordsForm(Location);
+		storedPasswordFrom.Show();
+		Close();
+	}
 
 	private void InitializeIcons()
 	{

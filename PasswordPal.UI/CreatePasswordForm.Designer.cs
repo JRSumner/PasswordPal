@@ -45,10 +45,12 @@
 			GithubIcon = new PictureBox();
 			InfoIcon = new PictureBox();
 			HelpIcon = new PictureBox();
+			BackIcon = new PictureBox();
 			((System.ComponentModel.ISupportInitialize)LockIcon).BeginInit();
 			((System.ComponentModel.ISupportInitialize)GithubIcon).BeginInit();
 			((System.ComponentModel.ISupportInitialize)InfoIcon).BeginInit();
 			((System.ComponentModel.ISupportInitialize)HelpIcon).BeginInit();
+			((System.ComponentModel.ISupportInitialize)BackIcon).BeginInit();
 			SuspendLayout();
 			// 
 			// SaveBtn
@@ -207,12 +209,24 @@
 			HelpIcon.TabStop = false;
 			HelpIcon.Click += Help_Click;
 			// 
+			// BackIcon
+			// 
+			BackIcon.Image = Properties.Resources.back_icon;
+			BackIcon.Location = new Point(12, 12);
+			BackIcon.Name = "BackIcon";
+			BackIcon.Size = new Size(38, 38);
+			BackIcon.SizeMode = PictureBoxSizeMode.StretchImage;
+			BackIcon.TabIndex = 17;
+			BackIcon.TabStop = false;
+			BackIcon.Click += BackIconClick;
+			// 
 			// CreatePasswordForm
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = SystemColors.ActiveCaption;
 			ClientSize = new Size(800, 450);
+			Controls.Add(BackIcon);
 			Controls.Add(GithubIcon);
 			Controls.Add(InfoIcon);
 			Controls.Add(HelpIcon);
@@ -236,6 +250,7 @@
 			((System.ComponentModel.ISupportInitialize)GithubIcon).EndInit();
 			((System.ComponentModel.ISupportInitialize)InfoIcon).EndInit();
 			((System.ComponentModel.ISupportInitialize)HelpIcon).EndInit();
+			((System.ComponentModel.ISupportInitialize)BackIcon).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -257,5 +272,6 @@
 		private PictureBox GithubIcon;
 		private PictureBox InfoIcon;
 		private PictureBox HelpIcon;
+		private PictureBox BackIcon;
 	}
 }
