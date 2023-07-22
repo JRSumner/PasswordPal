@@ -90,7 +90,7 @@
 			LoginBtn.TabIndex = 4;
 			LoginBtn.Text = "Login";
 			LoginBtn.UseVisualStyleBackColor = true;
-			LoginBtn.Click += LoginBtn_Click;
+			LoginBtn.Click += LoginBtnClick;
 			// 
 			// PasswordPalLabel
 			// 
@@ -111,7 +111,7 @@
 			SignUpBtn.TabIndex = 6;
 			SignUpBtn.Text = "Sign Up";
 			SignUpBtn.UseVisualStyleBackColor = true;
-			SignUpBtn.Click += SignUpBtn_Click;
+			SignUpBtn.Click += SignUpBtnClick;
 			// 
 			// HelpIcon
 			// 
@@ -122,7 +122,7 @@
 			HelpIcon.SizeMode = PictureBoxSizeMode.StretchImage;
 			HelpIcon.TabIndex = 7;
 			HelpIcon.TabStop = false;
-			HelpIcon.Click += Help_Click;
+			HelpIcon.Click += HelpIconClick;
 			// 
 			// InfoIcon
 			// 
@@ -133,7 +133,7 @@
 			InfoIcon.SizeMode = PictureBoxSizeMode.StretchImage;
 			InfoIcon.TabIndex = 8;
 			InfoIcon.TabStop = false;
-			InfoIcon.Click += InfoIcon_Click;
+			InfoIcon.Click += InfoIconClick;
 			// 
 			// GithubIcon
 			// 
@@ -144,7 +144,7 @@
 			GithubIcon.SizeMode = PictureBoxSizeMode.StretchImage;
 			GithubIcon.TabIndex = 9;
 			GithubIcon.TabStop = false;
-			GithubIcon.Click += GithubIcon_Click;
+			GithubIcon.Click += GithubIconClick;
 			// 
 			// LockIcon
 			// 

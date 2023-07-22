@@ -54,7 +54,7 @@
 			AddBtn.TabIndex = 1;
 			AddBtn.Text = "Add";
 			AddBtn.UseVisualStyleBackColor = true;
-			AddBtn.Click += AddBtn_Click;
+			AddBtn.Click += AddBtnClick;
 			// 
 			// LogoutBtn
 			// 
@@ -64,7 +64,7 @@
 			LogoutBtn.TabIndex = 2;
 			LogoutBtn.Text = "Logout";
 			LogoutBtn.UseVisualStyleBackColor = true;
-			LogoutBtn.Click += LogoutBtn_Click;
+			LogoutBtn.Click += LogoutBtnClick;
 			// 
 			// LockIcon
 			// 
@@ -100,7 +100,7 @@
 			Controls.Add(dataGridView1);
 			Name = "StoredPasswordsForm";
 			Text = "StoredPasswordsForm";
-			Load += StoredPasswordsForm_Load;
+			Load += StoredPasswordsFormLoad;
 			((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
 			((System.ComponentModel.ISupportInitialize)LockIcon).EndInit();
 			ResumeLayout(false);

@@ -131,7 +131,7 @@
 			RegisterBtn.TabIndex = 8;
 			RegisterBtn.Text = "Register";
 			RegisterBtn.UseVisualStyleBackColor = true;
-			RegisterBtn.Click += RegisterBtn_Click;
+			RegisterBtn.Click += RegisterBtnClick;
 			// 
 			// PasswordPalLabel
 			// 
@@ -163,7 +163,7 @@
 			GithubIcon.SizeMode = PictureBoxSizeMode.StretchImage;
 			GithubIcon.TabIndex = 14;
 			GithubIcon.TabStop = false;
-			GithubIcon.Click += GithubIcon_Click;
+			GithubIcon.Click += GithubIconClick;
 			// 
 			// InfoIcon
 			// 
@@ -174,7 +174,7 @@
 			InfoIcon.SizeMode = PictureBoxSizeMode.StretchImage;
 			InfoIcon.TabIndex = 13;
 			InfoIcon.TabStop = false;
-			InfoIcon.Click += InfoIcon_Click;
+			InfoIcon.Click += InfoIconClick;
 			// 
 			// HelpIcon
 			// 
@@ -185,7 +185,7 @@
 			HelpIcon.SizeMode = PictureBoxSizeMode.StretchImage;
 			HelpIcon.TabIndex = 12;
 			HelpIcon.TabStop = false;
-			HelpIcon.Click += Help_Click;
+			HelpIcon.Click += HelpIconClick;
 			// 
 			// BackIcon
 			// 

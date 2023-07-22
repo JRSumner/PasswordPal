@@ -31,21 +31,21 @@ public partial class StoredPasswordsForm : Form
 		dataGridView1.Columns["UpdatedAt"].Visible = false;
 	}
 
-	private void AddBtn_Click(object sender, EventArgs e)
+	private void AddBtnClick(object sender, EventArgs e)
 	{
 		var createPasswordForm = new CreatePasswordForm(Location);
 		createPasswordForm.Show();
 		Hide();
 	}
 
-	private void LogoutBtn_Click(object sender, EventArgs e)
+	private void LogoutBtnClick(object sender, EventArgs e)
 	{
 		var loginForm = new LoginForm(Location);
 		loginForm.Show();
 		Close();
 	}
 
-	private void StoredPasswordsForm_Load(object sender, EventArgs e)
+	private void StoredPasswordsFormLoad(object sender, EventArgs e)
 	{
 	}
 }

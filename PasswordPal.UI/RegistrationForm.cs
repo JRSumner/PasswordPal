@@ -25,7 +25,7 @@ public partial class RegistrationForm : Form
 		Location = _previousFormLocation;
 	}
 
-	private void RegisterBtn_Click(object sender, EventArgs e)
+	private void RegisterBtnClick(object sender, EventArgs e)
 	{
 		var textBoxes = new List<TextBox> { usernameTextBox, emailTextBox, passwordTextBox, confirmPasswordTextBox };
 		var textBoxString = new List<string> { usernameTextBox.Text, emailTextBox.Text, passwordTextBox.Text, confirmPasswordTextBox.Text };
@@ -70,17 +70,17 @@ public partial class RegistrationForm : Form
 		}
 	}
 
-	private async void Help_Click(object sender, EventArgs e)
+	private async void HelpIconClick(object sender, EventArgs e)
 	{
 		await Methods.HelpClickCommon(HelpIcon);
 	}
 
-	private async void InfoIcon_Click(object sender, EventArgs e)
+	private async void InfoIconClick(object sender, EventArgs e)
 	{
 		await Methods.InfoClickCommon(InfoIcon);
 	}
 
-	private async void GithubIcon_Click(object sender, EventArgs e)
+	private async void GithubIconClick(object sender, EventArgs e)
 	{
 		await Methods.GithubClickCommon(GithubIcon);
 	}

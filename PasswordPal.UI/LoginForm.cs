@@ -23,7 +23,7 @@ public partial class LoginForm : Form
 		Location = _previousFormLocation;
 	}
 
-	private void LoginBtn_Click(object sender, EventArgs e)
+	private void LoginBtnClick(object sender, EventArgs e)
 	{
 		var textBoxString = new List<string> { usernameTextBox.Text, passwordTextBox.Text };
 		var enteredUsername = usernameTextBox.Text;
@@ -55,24 +55,24 @@ public partial class LoginForm : Form
 		MessageBox.Show(@"Error logging in", Constants.MESSAGE_BOX_TITLE_ERROR);
 	}
 
-	private void SignUpBtn_Click(object sender, EventArgs e)
+	private void SignUpBtnClick(object sender, EventArgs e)
 	{
 		var registrationForm = new RegistrationForm(Location);
 		registrationForm.Show();
 		Hide();
 	}
 
-	private async void Help_Click(object sender, EventArgs e)
+	private async void HelpIconClick(object sender, EventArgs e)
 	{
 		await Methods.HelpClickCommon(HelpIcon);
 	}
 
-	private async void InfoIcon_Click(object sender, EventArgs e)
+	private async void InfoIconClick(object sender, EventArgs e)
 	{
 		await Methods.InfoClickCommon(InfoIcon);
 	}
 
-	private async void GithubIcon_Click(object sender, EventArgs e)
+	private async void GithubIconClick(object sender, EventArgs e)
 	{
 		await Methods.GithubClickCommon(GithubIcon);
 	}

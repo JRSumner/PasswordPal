@@ -61,7 +61,7 @@
 			SaveBtn.TabIndex = 1;
 			SaveBtn.Text = "Save";
 			SaveBtn.UseVisualStyleBackColor = true;
-			SaveBtn.Click += CreatePasswordBtn_Click;
+			SaveBtn.Click += CreatePasswordBtnClick;
 			// 
 			// TitleTextBox
 			// 
@@ -185,7 +185,7 @@
 			GithubIcon.SizeMode = PictureBoxSizeMode.StretchImage;
 			GithubIcon.TabIndex = 16;
 			GithubIcon.TabStop = false;
-			GithubIcon.Click += GithubIcon_Click;
+			GithubIcon.Click += GithubIconClick;
 			// 
 			// InfoIcon
 			// 
@@ -196,7 +196,7 @@
 			InfoIcon.SizeMode = PictureBoxSizeMode.StretchImage;
 			InfoIcon.TabIndex = 15;
 			InfoIcon.TabStop = false;
-			InfoIcon.Click += InfoIcon_Click;
+			InfoIcon.Click += InfoIconClick;
 			// 
 			// HelpIcon
 			// 
@@ -207,7 +207,7 @@
 			HelpIcon.SizeMode = PictureBoxSizeMode.StretchImage;
 			HelpIcon.TabIndex = 14;
 			HelpIcon.TabStop = false;
-			HelpIcon.Click += Help_Click;
+			HelpIcon.Click += HelpIconClick;
 			// 
 			// BackIcon
 			// 
@@ -245,7 +245,7 @@
 			Controls.Add(SaveBtn);
 			Name = "CreatePasswordForm";
 			Text = "Form1";
-			Load += CreatePasswordForm_Load;
+			Load += CreatePasswordFormLoad;
 			((System.ComponentModel.ISupportInitialize)LockIcon).EndInit();
 			((System.ComponentModel.ISupportInitialize)GithubIcon).EndInit();
 			((System.ComponentModel.ISupportInitialize)InfoIcon).EndInit();

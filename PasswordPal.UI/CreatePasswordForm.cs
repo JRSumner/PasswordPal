@@ -13,7 +13,7 @@ public partial class CreatePasswordForm : Form
 	{
 		InitializeComponent();
 
-		Text = @"PasswordPal - Create";
+		Text = @"PasswordPal - Add Item";
 		_previousFormLocation = location;
 	}
 
@@ -23,7 +23,7 @@ public partial class CreatePasswordForm : Form
 		Location = _previousFormLocation;
 	}
 
-	private void CreatePasswordBtn_Click(object sender, EventArgs e)
+	private void CreatePasswordBtnClick(object sender, EventArgs e)
 	{
 		var textBoxString = new List<string> { TitleTextBox.Text, UsernameTextBox.Text, PasswordTextBox.Text, WebsiteTextBox.Text };
 		var allFieldsArePopulatedResult = UserInterfaceService.AllFieldsArePopulated(textBoxString);
@@ -55,21 +55,21 @@ public partial class CreatePasswordForm : Form
 		Close();
 	}
 
-	private void CreatePasswordForm_Load(object sender, EventArgs e)
+	private void CreatePasswordFormLoad(object sender, EventArgs e)
 	{
 	}
 
-	private async void Help_Click(object sender, EventArgs e)
+	private async void HelpIconClick(object sender, EventArgs e)
 	{
 		await Methods.HelpClickCommon(HelpIcon);
 	}
 
-	private async void InfoIcon_Click(object sender, EventArgs e)
+	private async void InfoIconClick(object sender, EventArgs e)
 	{
 		await Methods.InfoClickCommon(InfoIcon);
 	}
 
-	private async void GithubIcon_Click(object sender, EventArgs e)
+	private async void GithubIconClick(object sender, EventArgs e)
 	{
 		await Methods.GithubClickCommon(GithubIcon);
 	}
