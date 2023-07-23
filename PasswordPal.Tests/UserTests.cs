@@ -28,6 +28,8 @@ public class UserTests
 	[Fact]
 	public void UniqueUsernameAndEmail_ReturnsFalse_WhenUserProvidesExistingEmailOrUsername()
 	{
+		using var context = new Context();
+
 		var uniqueUser = new User
 		{
 			Username = TestDataGenerator.GetUniqueUsername(),
@@ -44,9 +46,10 @@ public class UserTests
 			Salt = uniqueUser.Salt
 		};
 
-		using var context = new Context();
-
-		if (!context.User.Any(u => u.Username == uniqueUser.Username || u.Email == uniqueUser.Email)) context.User.Add(uniqueUser);
+		if (!context.User.Any(u => u.Username == uniqueUser.Username || u.Email == uniqueUser.Email))
+		{
+			context.User.Add(uniqueUser);
+		};
 
 		context.SaveChanges();
 		var result = UserService.UniqueUsernameAndEmail(duplicateUser).IsValid;

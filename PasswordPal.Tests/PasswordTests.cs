@@ -53,6 +53,16 @@ public class PasswordTests
 	[Fact]
 	public void AddStoredPassword_AddsPassword_WhenValidPasswordIsProvided()
 	{
+		var user = new User
+		{
+			Username = TestDataGenerator.GetUniqueUsername(),
+			Email = TestDataGenerator.GetUniqueEmail(),
+			Password = TestDataGenerator.GetUniquePassword(),
+			Salt = TestDataGenerator.GetSalt()
+		};
+
+		UserService.AddUser(user);
+
 		var storedPassword = new StoredPassword
 		{
 			Title = TestDataGenerator.GetUniqueTitle(),
@@ -61,8 +71,8 @@ public class PasswordTests
 			Website = TestDataGenerator.GetUniqueWebsite(),
 			CreatedAt = DateTime.Now.ToString(CultureInfo.InvariantCulture),
 			UpdatedAt = DateTime.Now.ToString(CultureInfo.InvariantCulture),
-			UserId = 160,
-			CategoryId = 7
+			UserId = user.Id,
+			CategoryId = 3
 		};
 
 		PasswordService.AddStoredPassword(storedPassword);
@@ -83,6 +93,17 @@ public class PasswordTests
 	[Fact]
 	public void GetStoredPasswords_ReturnsListOfStoredPasswords()
 	{
+
+		var user = new User
+		{
+			Username = TestDataGenerator.GetUniqueUsername(),
+			Email = TestDataGenerator.GetUniqueEmail(),
+			Password = TestDataGenerator.GetUniquePassword(),
+			Salt = TestDataGenerator.GetSalt()
+		};
+
+		UserService.AddUser(user);
+
 		var password = new StoredPassword
 		{
 			Title = TestDataGenerator.GetUniqueTitle(),
@@ -91,8 +112,8 @@ public class PasswordTests
 			Website = TestDataGenerator.GetUniqueWebsite(),
 			CreatedAt = DateTime.Now.ToString(CultureInfo.InvariantCulture),
 			UpdatedAt = DateTime.Now.ToString(CultureInfo.InvariantCulture),
-			UserId = 160,
-			CategoryId = 7,
+			UserId = user.Id,
+			CategoryId = 3,
 		};
 
 		PasswordService.AddStoredPassword(password);
