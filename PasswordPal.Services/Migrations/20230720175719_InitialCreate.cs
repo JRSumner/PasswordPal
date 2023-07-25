@@ -63,7 +63,7 @@ namespace PasswordPal.Services.Migrations
 
             migrationBuilder.InsertData(
                 table: "PasswordCategory",
-                columns: new[] { "Id", "Name" },
+                columns: new[] { "UserId", "Name" },
                 values: new object[,]
                 {
                     { 1, "Social" },
@@ -76,7 +76,7 @@ namespace PasswordPal.Services.Migrations
 
             migrationBuilder.InsertData(
                 table: "StoredPassword",
-                columns: new[] { "Id", "CategoryId", "CreatedAt", "EncryptedPassword", "Title", "UpdatedAt", "UserId", "Username", "Website" },
+                columns: new[] { "UserId", "CategoryId", "CreatedAt", "EncryptedPassword", "Title", "UpdatedAt", "UserId", "Username", "Website" },
                 values: new object[,]
                 {
                     { 1, 0, "2023-07-04 14:00:00", "encryptedPassword1", "Title1", "2023-07-04 14:00:00", 1, "Username1", "www.website1.com" },
@@ -88,7 +88,7 @@ namespace PasswordPal.Services.Migrations
 
             migrationBuilder.InsertData(
                 table: "User",
-                columns: new[] { "Id", "Email", "Password", "Salt", "Username" },
+                columns: new[] { "UserId", "Email", "Password", "Salt", "Username" },
                 values: new object[,]
                 {
                     { 1, "testUser1@email.com", "testPassword1", "exampleSalt", "testUser1" },

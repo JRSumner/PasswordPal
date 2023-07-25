@@ -25,7 +25,7 @@ public partial class StoredPasswordsForm : Form
 	private void DisplayStoredPasswords()
 	{
 		dataGridView1.DataSource = PasswordService.GetStoredPasswords();
-		dataGridView1.Columns["Id"].Visible = false;
+		dataGridView1.Columns["UserId"].Visible = false;
 		dataGridView1.Columns["UserId"].Visible = false;
 		dataGridView1.Columns["CategoryId"].Visible = false;
 		dataGridView1.Columns["CreatedAt"].Visible = false;

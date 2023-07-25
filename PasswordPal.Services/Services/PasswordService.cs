@@ -22,7 +22,8 @@ public class PasswordService
 
 		using var context = new Context();
 
-		return context.StoredPassword.FirstOrDefault(p => p.Id == storedPassword.Id);
+		return context.StoredPassword
+			.FirstOrDefault(p => p.Id == storedPassword.Id && p.UserId == AppSession.UserId);
 	}
 
 	public static HashedPasswordAndSalt GenerateHashedPasswordAndSalt(string? stringPassword)
@@ -84,11 +85,11 @@ public class PasswordService
 		using var context = new Context();
 		var storedPassword = new List<StoredPassword>();
 
-		if (context.StoredPassword.Any())
-		{
-			storedPassword = context.StoredPassword?.ToList();
-			return storedPassword;
-		}
+		if (!context.StoredPassword.Any()) return storedPassword;
+
+		storedPassword = context.StoredPassword
+			.Where(sp => sp.UserId == AppSession.UserId)
+			?.ToList();
 
 		return storedPassword;
 	}

@@ -27,7 +27,7 @@ public partial class LoginForm : Form
 		var textBoxString = new List<string> { usernameTextBox.Text, passwordTextBox.Text };
 		var enteredUsername = usernameTextBox.Text;
 		var enteredPassword = passwordTextBox.Text;
-		var userResponse = UserService.GetUser(enteredUsername);
+		var userResponse = UserService.Login(enteredUsername);
 
 		if (!userResponse.Success)
 		{

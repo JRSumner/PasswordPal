@@ -44,7 +44,7 @@ public partial class CreatePasswordForm : Form
 			Website = WebsiteTextBox.Text,
 			CreatedAt = DateTime.Now.ToString(CultureInfo.InvariantCulture),
 			UpdatedAt = DateTime.Now.ToString(CultureInfo.InvariantCulture),
-			UserId = 1,
+			UserId = AppSession.UserId,
 			CategoryId = selectedCategory.Id,
 		};
 

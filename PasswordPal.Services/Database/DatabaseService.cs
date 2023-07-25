@@ -15,22 +15,22 @@ public class DatabaseService
 		using var connection = new SQLiteConnection($"Data Source={DbFileName};Version=3;");
 		connection.Open();
 
-		using (var command = new SQLiteCommand("CREATE TABLE User (Id INTEGER PRIMARY KEY, Username TEXT, Email TEXT, Password TEXT, Salt TEXT)", connection))
+		using (var command = new SQLiteCommand("CREATE TABLE User (UserId INTEGER PRIMARY KEY, Username TEXT, Email TEXT, Password TEXT, Salt TEXT)", connection))
 		{
 			command.ExecuteNonQuery();
 		}
 
-		using (var command = new SQLiteCommand("CREATE TABLE PasswordCategory (Id INTEGER PRIMARY KEY, Name TEXT)", connection))
+		using (var command = new SQLiteCommand("CREATE TABLE PasswordCategory (UserId INTEGER PRIMARY KEY, Name TEXT)", connection))
 		{
 			command.ExecuteNonQuery();
 		}
 
-		using (var command = new SQLiteCommand("CREATE TABLE StoredPassword (Id INTEGER PRIMARY KEY, Title TEXT, Username TEXT, EncryptedPassword TEXT, Website TEXT, CreatedAt TEXT, UpdatedAt TEXT, UserId INTEGER, CategoryId INTEGER, FOREIGN KEY(UserId) REFERENCES User(Id), FOREIGN KEY(CategoryId) REFERENCES PasswordCategory(Id))", connection))
+		using (var command = new SQLiteCommand("CREATE TABLE StoredPassword (UserId INTEGER PRIMARY KEY, Title TEXT, Username TEXT, EncryptedPassword TEXT, Website TEXT, CreatedAt TEXT, UpdatedAt TEXT, UserId INTEGER, CategoryId INTEGER, FOREIGN KEY(UserId) REFERENCES User(UserId), FOREIGN KEY(CategoryId) REFERENCES PasswordCategory(UserId))", connection))
 		{
 			command.ExecuteNonQuery();
 		}
 
-		using (var command = new SQLiteCommand("INSERT INTO PasswordCategory (Id, Name) VALUES (1, 'Social'), (2, 'Work'), (3, 'Streaming'), (4, 'Shopping'), (5, 'Gaming'), (6, 'Financial');", connection))
+		using (var command = new SQLiteCommand("INSERT INTO PasswordCategory (UserId, Name) VALUES (1, 'Social'), (2, 'Work'), (3, 'Streaming'), (4, 'Shopping'), (5, 'Gaming'), (6, 'Financial');", connection))
 		{
 			command.ExecuteNonQuery();
 		}

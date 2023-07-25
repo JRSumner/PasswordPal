@@ -107,4 +107,16 @@ public class UserService
 
 		return result;
 	}
+
+	public static UserResponse Login(string username)
+	{
+		var userResponse = GetUser(username);
+
+		if (!userResponse.Success) return userResponse;
+
+		var user = GetUser(username).User;
+		if (user != null) AppSession.UserId = user.Id;
+
+		return userResponse;
+	}
 }

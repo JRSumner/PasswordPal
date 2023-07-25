@@ -9,11 +9,7 @@ public class Context : DbContext
     public DbSet<StoredPassword> StoredPassword { get; set; }
     public DbSet<PasswordCategory> PasswordCategory { get; set; }
 
-    public Context()
-	{
-	}
-
-	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	{
 		var dbFileName = "PasswordPal.db";
 		var projectDirectory = Directory.GetCurrentDirectory();

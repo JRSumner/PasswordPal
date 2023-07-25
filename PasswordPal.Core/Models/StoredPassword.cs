@@ -9,6 +9,6 @@ public class StoredPassword
 	public string Website { get; set; }
 	public string CreatedAt { get; set; }
 	public string UpdatedAt { get; set; }
-	public int UserId { get; set; }
+	public int? UserId { get; set; }
 	public int CategoryId { get; set; }
 }
