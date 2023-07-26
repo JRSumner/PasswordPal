@@ -6,8 +6,19 @@ using Xunit;
 
 namespace PasswordPal.Tests;
 
-public class PasswordTests
+public class PasswordTests : IAsyncLifetime
 {
+	public Task InitializeAsync()
+	{
+		return Task.CompletedTask;
+	}
+
+	public Task DisposeAsync()
+	{
+		AppSession.UserId = null;
+		return Task.CompletedTask;
+	}
+
 	[Fact]
 	public void PasswordMatchesConfirmation_ReturnsTrue_WhenPasswordsMatch()
 	{
@@ -62,6 +73,7 @@ public class PasswordTests
 		};
 
 		UserService.AddUser(user);
+		AppSession.UserId = UserService.GetUser(user.Username)?.User?.Id;
 
 		var storedPassword = new StoredPassword
 		{
@@ -79,7 +91,7 @@ public class PasswordTests
 
 		var result = PasswordService.GetStoredPassword(storedPassword);
 
-		Assert.Equal(result.Id, storedPassword.Id);
+		Assert.Equal(result?.Id, storedPassword?.Id);
 	}
 
 	[Fact]
@@ -103,6 +115,7 @@ public class PasswordTests
 		};
 
 		UserService.AddUser(user);
+		AppSession.UserId = UserService.GetUser(user.Username).User.Id;
 
 		var password = new StoredPassword
 		{
