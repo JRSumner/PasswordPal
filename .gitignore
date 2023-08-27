@@ -53,3 +53,7 @@ local.settings.json
 
 # Ignore .NET Core publish folder
 publish/
+
+# Ignore Database files
+
+*.db

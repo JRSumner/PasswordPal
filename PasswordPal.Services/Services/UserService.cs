@@ -1,5 +1,6 @@
 ﻿using Core.Models;
 using Core.Models.Responses;
+using NLog;
 using PasswordPal.Core.Models;
 using PasswordPal.Services.Database;
 
@@ -7,6 +8,8 @@ namespace PasswordPal.Services.Services;
 
 public class UserService
 {
+	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
 	public static void AddUser(User user)
 	{
 		using var context = new Context();
@@ -26,6 +29,8 @@ public class UserService
 		using var context = new Context();
 		var user = context.User.FirstOrDefault(u => u.Username == username);
 		var userResponse = new UserResponse();
+
+		Logger.Warn("Test in Services project final");
 
 		if (user != null)
 		{
