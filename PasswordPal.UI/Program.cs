@@ -14,11 +14,7 @@ internal static class Program
 	/// </summary>
 	[STAThread]
 	static void Main() {
-		Logger.Info("Starting application...");
-		LogManager.Shutdown();
-
-
-
+		Logger.Info("Initializing PasswordPal...");
 		var uiProjectPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 		var servicesProjectPath = Path.GetFullPath(Path.Combine(uiProjectPath, "..", "..", "..", "..", "PasswordPal.Services", "Database"));
 		Directory.SetCurrentDirectory(servicesProjectPath);
@@ -29,5 +25,6 @@ internal static class Program
 		Batteries.Init();
 		ApplicationConfiguration.Initialize();
 		Application.Run(new LoginForm());
+		LogManager.Shutdown();
 	}
 }

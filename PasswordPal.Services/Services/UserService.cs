@@ -12,46 +12,93 @@ public class UserService
 
 	public static void AddUser(User user)
 	{
-		using var context = new Context();
-		context.Add(user);
-		context.SaveChanges();
+        Logger.Info("Attempting to add a new user.");
+
+        try
+        {
+            using var context = new Context();
+            context.Add(user);
+            context.SaveChanges();
+            Logger.Info("Successfully added a new user with ID: {0}", user.Id);
+        }
+        catch (Exception ex)
+        {
+            Logger.Error(ex, "An error occurred while adding a new user.");
+        }
 	}
 
 	public static void RemoveUser(User user)
 	{
-		using var context = new Context();
-		context.Remove(user);
-		context.SaveChanges();
+		Logger.Info("Attempting to remove a user.");
+
+		try
+		{
+			using var context = new Context();
+			context.Remove(user);
+			context.SaveChanges();
+			Logger.Info("Successfully removed a user with ID: {0}.", user.Id);
+		}
+		catch (Exception ex)
+		{
+			Logger.Error(ex, "An error occured while removing a user with ID: {0}.", user.Id);
+		}
 	}
 
 	public static UserResponse GetUser(string username)
 	{
-		using var context = new Context();
-		var user = context.User.FirstOrDefault(u => u.Username == username);
+		Logger.Info("Attempting to get a user.");
+		User? user = null;
 		var userResponse = new UserResponse();
 
-		Logger.Warn("Test in Services project final");
-
-		if (user != null)
+		try
 		{
-			userResponse.User = user;
-			userResponse.Success = true;
+			using var context = new Context();
+			user = context.User.FirstOrDefault(u => u.Username == username);
+
+			if (user != null)
+			{
+				userResponse.User = user;
+				userResponse.Success = true;
+				Logger.Info("Successfully retrieved a user with ID: {0}", user.Id);
+
+				return userResponse;
+			}
+
+			userResponse.Success = false;
+			userResponse.Response = $"Unable to find user with username :{username}";
 
 			return userResponse;
 		}
-
-		userResponse.Success = false;
-		userResponse.Response = $"Unable to find user with username :{username}";
-
-		return userResponse;
+		catch (Exception ex)
+		{
+			Logger.Error(ex, "An error occured while retrieving a user with ID: {0}.", user.Id);
+			return userResponse;
+		}
 	}
 
 	public static bool UserExists(string username)
 	{
-		using var context = new Context();
+		Logger.Info("Checking if a user with the username: {0} exists.", username);
 
-		return context.User.Any(u => u.Username == username);
+		try
+		{
+			using var context = new Context();
+			if (context.User.Any(u => u.Username == username))
+			{
+				Logger.Info("User with username: {0} exists.", username);
+				return true;
+			}
+	
+			Logger.Info("User with username: {0} does not exist.", username);
+			return false;
+		}
+		catch (Exception ex)
+		{
+			Logger.Error(ex, "An error occurred while checking if a user with username: {0} exists.", username);
+			return false;
+		}
 	}
+
 
 	public static ValidationResult UniqueUsernameAndEmail(User user)
 	{
@@ -81,33 +128,41 @@ public class UserService
 
 	public static ValidationResult ValidUserRegistration(List<string> textBoxString, string? password, string? confirmedPassword, User user)
 	{
+		Logger.Info("Validating the uniqueness of username and email for a new user.");
+
 		var result = new ValidationResult
 		{
 			IsValid = true
 		};
 
-		var allFieldsArePopulatedResult = UserInterfaceService.AllFieldsArePopulated(textBoxString);
-		var passwordMatchesConfirmationResult = PasswordService.PasswordMatchesConfirmation(password, confirmedPassword);
-		var uniqueUsernameAndEmailResult = UniqueUsernameAndEmail(user);
-
-		if (!allFieldsArePopulatedResult.IsValid)
+		try
 		{
-			result.IsValid = false;
-			result.Message = allFieldsArePopulatedResult.Message;
+			using var context = new Context();
 
-			return result;
+			if (context.User.Any(u => u.Username == user.Username))
+			{
+				result.IsValid = false;
+				result.Message = @"Username already exists, please try a different username";
+				Logger.Warn("Username: {0} already exists. Validation failed.", user.Username);
+				return result;
+			}
+
+			if (context.User.Any(u => u.Email == user.Email))
+			{
+				result.IsValid = false;
+				result.Message = @"Please register with a different email, a user has already registered using this email.";
+				Logger.Warn("Email: {0} already exists. Validation failed.", user.Email);
+			}
+			else
+			{
+				Logger.Info("Username and Email are unique. Validation successful.");
+			}
 		}
-
-		if (!passwordMatchesConfirmationResult.IsValid)
+		catch (Exception ex)
 		{
+			Logger.Error(ex, "An error occurred while validating the uniqueness of username and email.");
 			result.IsValid = false;
-			result.Message = passwordMatchesConfirmationResult.Message;
-		}
-
-		if (!uniqueUsernameAndEmailResult.IsValid)
-		{
-			result.IsValid = false;
-			result.Message = uniqueUsernameAndEmailResult.Message;
+			result.Message = "An error occurred during validation.";
 		}
 
 		return result;
@@ -115,13 +170,29 @@ public class UserService
 
 	public static UserResponse Login(string username)
 	{
+		Logger.Info("Attempting to login user with username: {0}", username);
+
 		var userResponse = GetUser(username);
 
-		if (!userResponse.Success) return userResponse;
+		if (!userResponse.Success)
+		{
+			Logger.Warn("Login failed for username: {0}. User not found or an error occurred.", username);
+			return userResponse;
+		}
 
-		var user = GetUser(username).User;
-		if (user != null) AppSession.UserId = user.Id;
+		var user = userResponse.User;
+
+		if (user != null)
+		{
+			AppSession.UserId = user.Id;
+			Logger.Info("Successfully logged in user with ID: {0}", user.Id);
+		}
+		else
+		{
+			Logger.Warn("Login failed for username: {0}. User object is null.", username);
+		}
 
 		return userResponse;
 	}
+
 }
