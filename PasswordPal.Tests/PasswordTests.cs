@@ -6,7 +6,7 @@ using Xunit;
 
 namespace PasswordPal.Tests;
 
-public class PasswordTests : IAsyncLifetime
+public class PasswordTests : TestFixture, IAsyncLifetime
 {
 	public Task InitializeAsync()
 	{
@@ -72,8 +72,8 @@ public class PasswordTests : IAsyncLifetime
 			Salt = TestDataGenerator.GetSalt()
 		};
 
-		UserService.AddUser(user);
-		AppSession.UserId = UserService.GetUser(user.Username)?.User?.Id;
+		UserService.AddUser(user, _context);
+		AppSession.UserId = UserService.GetUser(user.Username, _context)?.User?.Id;
 
 		var storedPassword = new StoredPassword
 		{
@@ -87,9 +87,9 @@ public class PasswordTests : IAsyncLifetime
 			CategoryId = 3
 		};
 
-		PasswordService.AddStoredPassword(storedPassword);
+		PasswordService.AddStoredPassword(storedPassword, _context);
 
-		var result = PasswordService.GetStoredPassword(storedPassword);
+		var result = PasswordService.GetStoredPassword(storedPassword, _context);
 
 		Assert.Equal(result?.Id, storedPassword?.Id);
 	}
@@ -99,7 +99,7 @@ public class PasswordTests : IAsyncLifetime
 	{
 		StoredPassword password = null;
 
-		Assert.Throws<ArgumentNullException>(() => PasswordService.AddStoredPassword(password));
+		Assert.Throws<ArgumentNullException>(() => PasswordService.AddStoredPassword(password, _context));
 	}
 
 	[Fact]
@@ -114,8 +114,8 @@ public class PasswordTests : IAsyncLifetime
 			Salt = TestDataGenerator.GetSalt()
 		};
 
-		UserService.AddUser(user);
-		AppSession.UserId = UserService.GetUser(user.Username).User.Id;
+		UserService.AddUser(user, _context);
+		AppSession.UserId = UserService.GetUser(user.Username, _context).User?.Id;
 
 		var password = new StoredPassword
 		{
@@ -129,9 +129,9 @@ public class PasswordTests : IAsyncLifetime
 			CategoryId = 3,
 		};
 
-		PasswordService.AddStoredPassword(password);
+		PasswordService.AddStoredPassword(password, _context);
 
-		var result = PasswordService.GetStoredPasswords();
+		var result = PasswordService.GetStoredPasswords(_context);
 
 		Assert.NotNull(result); 
 		Assert.IsType<List<StoredPassword>>(result); 

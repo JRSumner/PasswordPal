@@ -1,5 +1,6 @@
 ﻿using Core.Models;
 using NLog;
+using PasswordPal.Services.Database;
 
 namespace PasswordPal.Services.Services;
 
@@ -7,8 +8,9 @@ public class UserInterfaceService
 {
 	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-	public static ValidationResult AllFieldsArePopulated(List<string> textBoxString)
+	public static ValidationResult AllFieldsArePopulated(List<string> textBoxString, Context context = null)
 	{
+		context ??= new Context();
 		Logger.Info("Checking if all fields are populated.");
 
 		var result = new ValidationResult();

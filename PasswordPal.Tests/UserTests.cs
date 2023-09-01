@@ -1,12 +1,11 @@
-﻿using PasswordPal.Services.Database;
-using PasswordPal.Core.Models;
+﻿using PasswordPal.Core.Models;
 using PasswordPal.Services.Services;
 using PasswordPal.Tests.Data;
 using Xunit;
 
 namespace PasswordPal.Tests;
 
-public class UserTests
+public class UserTests : TestFixture
 {
 	[Fact]
 	public void UniqueUsernameAndEmail_ReturnsTrue_WhenUserProvidesUniqueEmailAndUsername()
@@ -19,8 +18,7 @@ public class UserTests
 			Salt = TestDataGenerator.GetSalt()
 		};
 
-		using var context = new Context();
-		var result = UserService.UniqueUsernameAndEmail(user).IsValid;
+		var result = UserService.UniqueUsernameAndEmail(user, _context).IsValid;
 
 		Assert.True(result);
 	}
@@ -28,8 +26,6 @@ public class UserTests
 	[Fact]
 	public void UniqueUsernameAndEmail_ReturnsFalse_WhenUserProvidesExistingEmailOrUsername()
 	{
-		using var context = new Context();
-
 		var uniqueUser = new User
 		{
 			Username = TestDataGenerator.GetUniqueUsername(),
@@ -37,25 +33,24 @@ public class UserTests
 			Password = TestDataGenerator.GetUniquePassword(),
 			Salt = TestDataGenerator.GetSalt()
 		};
-
+		UserService.AddUser(uniqueUser, _context);
+		_context.SaveChanges();
+	
 		var duplicateUser = new User
 		{
-			Username = uniqueUser.Username,
-			Email = uniqueUser.Email,
-			Password = uniqueUser.Password,
-			Salt = uniqueUser.Salt
+			Username = uniqueUser.Username, 
+			Email = uniqueUser.Email,       
+			Password = TestDataGenerator.GetUniquePassword(),
+			Salt = TestDataGenerator.GetSalt()
 		};
+	
 
-		if (!context.User.Any(u => u.Username == uniqueUser.Username || u.Email == uniqueUser.Email))
-		{
-			context.User.Add(uniqueUser);
-		};
+		var result = UserService.UniqueUsernameAndEmail(duplicateUser, _context);
 
-		context.SaveChanges();
-		var result = UserService.UniqueUsernameAndEmail(duplicateUser).IsValid;
-
-		Assert.False(result);
+		Assert.False(result.IsValid);
+		Assert.NotNull(result.Message);
 	}
+
 
 	[Fact]
 	public void ValidUserRegistration_ReturnsTrue_UserRegistrationIsValid()
@@ -77,8 +72,7 @@ public class UserTests
 			Salt = TestDataGenerator.GetSalt()
 		};
 
-		using var context = new Context();
-		var result = UserService.ValidUserRegistration(fields, password, confirmedPassword, user);
+		var result = UserService.ValidUserRegistration(fields, password, confirmedPassword, user, _context);
 
 		Assert.True(result.IsValid);
 	}
@@ -94,22 +88,14 @@ public class UserTests
 			Salt = TestDataGenerator.GetSalt()
 		};
 
-		using var context = new Context();
+		UserService.AddUser(user, _context);
+		var retrievedUserResponse = UserService.GetUser(user.Username, _context);
 
-		var existingUser = context.User.Any(u => u == user);
-
-		if (existingUser)
-		{
-			UserService.AddUser(user);
-		}
-
-		UserService.AddUser(user);
-		var result = UserService.GetUser(user.Username);
-
-		Assert.NotNull(result);
-		Assert.Equal(result.User.Username, user.Username);
-		Assert.Contains(context.User, u => u.Username == user.Username);
+		Assert.NotNull(retrievedUserResponse);
+		Assert.True(retrievedUserResponse.Success);
+		Assert.Equal(user.Username, retrievedUserResponse.User.Username);
 	}
+
 
 	[Fact]
 	public void AddUser_ReturnsFalse_WhenUserIsNotAdded()
@@ -122,7 +108,7 @@ public class UserTests
 			Salt = TestDataGenerator.GetSalt()
 		};
 
-		var result = UserService.GetUser(user.Username);
+		var result = UserService.GetUser(user.Username, _context);
 
 		Assert.False(result.Success);
 	}
@@ -138,11 +124,11 @@ public class UserTests
 			Salt = TestDataGenerator.GetSalt()
 		};
 
-		UserService.AddUser(user);
-		var userAdded = UserService.UserExists(user.Username);
+		UserService.AddUser(user, _context);
+		var userAdded = UserService.UserExists(user.Username, _context);
 
-		UserService.RemoveUser(user);
-		var userRemoved = !UserService.UserExists(user.Username);
+		UserService.RemoveUser(user, _context);
+		var userRemoved = !UserService.UserExists(user.Username, _context);
 
 		Assert.True(userAdded);
 		Assert.True(userRemoved);
@@ -159,10 +145,10 @@ public class UserTests
 			Salt = TestDataGenerator.GetSalt()
 		};
 
-		UserService.AddUser(user);
-		var result = UserService.GetUser(user.Username);
+		UserService.AddUser(user, _context);
+		var result = UserService.GetUser(user.Username, _context);
 
-		Assert.Equal(result.User.Username, user.Username);
+		Assert.Equal(result.User?.Username, user.Username);
 	}
 
 	[Fact]
@@ -176,7 +162,7 @@ public class UserTests
 			Salt = TestDataGenerator.GetSalt()
 		};
 
-		var result = UserService.GetUser(user.Username);
+		var result = UserService.GetUser(user.Username, _context);
 
 		Assert.False(result.Success);
 	}
@@ -192,8 +178,8 @@ public class UserTests
 			Salt = TestDataGenerator.GetSalt()
 		};
 
-		UserService.AddUser(user);
-		var result = UserService.UserExists(user.Username);
+		UserService.AddUser(user, _context);
+		var result = UserService.UserExists(user.Username, _context);
 
 		Assert.True(result);
 	}
@@ -209,7 +195,7 @@ public class UserTests
 			Salt = TestDataGenerator.GetSalt()
 		};
 
-		var result = UserService.UserExists(user.Username);
+		var result = UserService.UserExists(user.Username, _context);
 
 		Assert.False(result);
 	}

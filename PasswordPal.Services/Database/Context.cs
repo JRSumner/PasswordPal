@@ -9,15 +9,25 @@ public class Context : DbContext
     public DbSet<StoredPassword> StoredPassword { get; set; }
     public DbSet<PasswordCategory> PasswordCategory { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public Context()
+    {
+    }
+    public Context(DbContextOptions<Context> options) : base(options)
+    {
+    }
+
+	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	{
-		var dbFileName = "PasswordPal.db";
-		var projectDirectory = Directory.GetCurrentDirectory();
-		var dbFilePath = Path.Combine(projectDirectory, dbFileName);
-		var connectionString = $"Data Source={dbFilePath};";
+		if (!optionsBuilder.IsConfigured)  // Only configure if no options have been provided
+		{
+			var dbFileName = "PasswordPal.db";
+			var projectDirectory = Directory.GetCurrentDirectory();
+			var dbFilePath = Path.Combine(projectDirectory, dbFileName);
+			var connectionString = $"Data Source={dbFilePath};";
 
-		DatabaseService.CreateDatabaseAndTables();
+			DatabaseService.CreateDatabaseAndTables();
 
-		optionsBuilder.UseSqlite(connectionString);
+			optionsBuilder.UseSqlite(connectionString);
+		}
 	}
 }

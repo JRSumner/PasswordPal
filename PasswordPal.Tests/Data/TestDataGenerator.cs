@@ -8,7 +8,7 @@ public static class TestDataGenerator
 
 	public static string GetUniqueUsername()
 	{
-		return "TestUser" + RandomGenerator.Next(1000, 9999);
+		return "TestUser" + Guid.NewGuid();
 	}
 
 	public static string GetUniqueEmail()
@@ -18,7 +18,7 @@ public static class TestDataGenerator
 
 	public static string GetUniquePassword()
 	{
-		return "Password" + RandomGenerator.Next(1000, 9999);
+		return "Password" + Guid.NewGuid();
 	}
 
 	public static string GetSalt()
@@ -36,11 +36,11 @@ public static class TestDataGenerator
 
 	public static string GetUniqueTitle()
 	{
-		return "Title" + RandomGenerator.Next(1000, 9999);
+		return "Title" + Guid.NewGuid();
 	}
 
 	public static string GetUniqueWebsite()
 	{
-		return "Website" + RandomGenerator.Next(1000, 9999);
+		return "Website" + Guid.NewGuid();
 	}
 }

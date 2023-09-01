@@ -10,8 +10,9 @@ public class PasswordService
 {
 	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-	public static void AddStoredPassword(StoredPassword storedPassword)
+	public static void AddStoredPassword(StoredPassword storedPassword, Context context = null)
 	{
+		context ??= new Context();
 		Logger.Info("Attempting to add a new stored password.");
 
 		if (storedPassword == null)
@@ -20,14 +21,14 @@ public class PasswordService
 			throw new ArgumentNullException();
 		}
 
-		using var context = new Context();
 		context.StoredPassword.Add(storedPassword);
 		context.SaveChanges();
 		Logger.Info($"Successfully added a new stored password with ID: {storedPassword.Id}");
 	}
 
-	public static StoredPassword GetStoredPassword(StoredPassword storedPassword)
+	public static StoredPassword GetStoredPassword(StoredPassword storedPassword, Context context = null)
 	{
+		context ??= new Context();
 		Logger.Info("Attempting to retrieve a stored password.");
 
 		if (storedPassword == null)
@@ -36,7 +37,6 @@ public class PasswordService
 			throw new ArgumentNullException();
 		}
 
-		using var context = new Context();
 		var result = context.StoredPassword
 			.FirstOrDefault(p => p.Id == storedPassword.Id && p.UserId == AppSession.UserId);
 
@@ -127,13 +127,13 @@ public class PasswordService
 	}
 
 
-	public static List<StoredPassword>? GetStoredPasswords()
+	public static List<StoredPassword>? GetStoredPasswords(Context context = null)
 	{
+		context ??= new Context();
 		Logger.Info("Attempting to retrieve all stored passwords for the current user.");
 
 		try
 		{
-			using var context = new Context();
 			if (!context.StoredPassword.Any())
 			{
 				Logger.Warn("No stored passwords found in the database.");

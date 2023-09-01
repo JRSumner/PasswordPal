@@ -3,7 +3,7 @@ using Xunit;
 
 namespace PasswordPal.Tests;
 
-public class UserInterfaceTests
+public class UserInterfaceTests : TestFixture
 {
 	[Fact]
 	public void AllFieldsArePopulated_ReturnsTrue_WhenAllFieldsArePopulated()
@@ -14,7 +14,7 @@ public class UserInterfaceTests
 			"Some other text"
 		};
 
-		var result = UserInterfaceService.AllFieldsArePopulated(fields);
+		var result = UserInterfaceService.AllFieldsArePopulated(fields, _context);
 
 		Assert.True(result.IsValid);
 	}
@@ -28,7 +28,7 @@ public class UserInterfaceTests
 			string.Empty
 		};
 
-		var result = UserInterfaceService.AllFieldsArePopulated(fields);
+		var result = UserInterfaceService.AllFieldsArePopulated(fields, _context);
 
 		Assert.False(result.IsValid);
 	}
