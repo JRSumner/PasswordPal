@@ -35,6 +35,7 @@ namespace PasswordPal.Tests
 			_context.PasswordCategory.Add(new PasswordCategory { Id = 4, Name = "Shopping" });
 			_context.PasswordCategory.Add(new PasswordCategory { Id = 5, Name = "Gaming" });
 			_context.PasswordCategory.Add(new PasswordCategory { Id = 6, Name = "Financial" });
+			_context.SaveChanges();
 		}
 	}
 }
