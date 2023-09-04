@@ -1,11 +1,14 @@
 ﻿using PasswordPal.Services.Services;
 using PasswordPal.UI.Common;
+using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 namespace PasswordPal.UI;
 
 public partial class StoredPasswordsForm : Form
 {
 	private readonly Point _previousFormLocation;
+	private bool passwordCellClicked;
 
 	public StoredPasswordsForm(Point location)
 	{
@@ -20,16 +23,21 @@ public partial class StoredPasswordsForm : Form
 	{
 		base.OnLoad(e);
 		Location = _previousFormLocation;
+		StyleDataGridView(StoredItemsGrid);
 	}
 
 	private void DisplayStoredPasswords()
 	{
-		dataGridView1.DataSource = PasswordService.GetStoredPasswords();
-		dataGridView1.Columns["UserId"].Visible = false;
-		dataGridView1.Columns["UserId"].Visible = false;
-		dataGridView1.Columns["CategoryId"].Visible = false;
-		dataGridView1.Columns["CreatedAt"].Visible = false;
-		dataGridView1.Columns["UpdatedAt"].Visible = false;
+		StoredItemsGrid.DataSource = PasswordService.GetStoredPasswords();
+		StoredItemsGrid.Columns["Id"].Visible = false;
+		StoredItemsGrid.Columns["UserId"].Visible = false;
+		StoredItemsGrid.Columns["UserId"].Visible = false;
+		StoredItemsGrid.Columns["CategoryId"].Visible = false;
+		StoredItemsGrid.Columns["CreatedAt"].Visible = false;
+		StoredItemsGrid.Columns["UpdatedAt"].Visible = false;
+
+		StoredItemsGrid.CellFormatting += StoredItemsGrid_CellFormatting;
+		StoredItemsGrid.CellClick += StoredItemsGrid_CellClick;
 	}
 
 	private void AddBtnClick(object sender, EventArgs e)
@@ -66,4 +74,62 @@ public partial class StoredPasswordsForm : Form
 	{
 		await Methods.GithubClickCommon(GithubIcon);
 	}
+
+	private void StyleDataGridView(DataGridView dgv)
+	{
+		dgv.CellBorderStyle = DataGridViewCellBorderStyle.Raised;
+		dgv.DefaultCellStyle.BackColor = Color.WhiteSmoke;
+		dgv.DefaultCellStyle.ForeColor = Color.Black;
+		dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.LightSteelBlue;
+		dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+		dgv.ColumnHeadersDefaultCellStyle.Font = new Font(dgv.Font, FontStyle.Bold);
+		dgv.BorderStyle = BorderStyle.None;
+		dgv.RowTemplate.Height = 30;
+		dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.LightSteelBlue;
+		dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+		dgv.MultiSelect = false;
+		dgv.DefaultCellStyle.SelectionBackColor = Color.MediumSlateBlue;
+		dgv.DefaultCellStyle.SelectionForeColor = Color.White;
+		dgv.RowHeadersVisible = false;
+		dgv.EnableHeadersVisualStyles = false;
+
+		foreach (DataGridViewColumn column in dgv.Columns)
+		{
+			column.ReadOnly = true;
+			column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+		}
+	}
+
+	private void StoredItemsGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+	{
+		if (StoredItemsGrid.Columns[e.ColumnIndex].Name == "EncryptedPassword" && !passwordCellClicked)
+		{
+			e.Value = "*****";
+			e.FormattingApplied = true;
+		}
+	}
+
+
+	private void StoredItemsGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+	{
+		if (StoredItemsGrid.Columns[e.ColumnIndex].Name == "EncryptedPassword")
+		{
+			passwordCellClicked = true;
+
+			var originalPassword = StoredItemsGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+			StoredItemsGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = originalPassword;
+
+			var timer = new Timer();
+			timer.Interval = 5000;
+			timer.Tick += (s, args) =>
+			{
+				StoredItemsGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "*****";
+				passwordCellClicked = false;
+				timer.Stop();
+			};
+			timer.Start();
+		}
+	}
+
+
 }
